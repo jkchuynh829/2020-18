@@ -1,4 +1,37 @@
+@import "variables";
+@import "./layout/index";
+
 html {
   background-color: #fafafa;
-  font-size: 18px;
+  font-size: 10px;
+  height: 100%;
+}
+
+body {
+  font-size: 1.6rem;
+  height: 100%;
+  margin: 0;
+  font-family: $font-primary;
+}
+
+#root {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.root-container {
+  display: grid;
+  grid-template-columns: 30rem 1fr;
+  grid-template-areas: "sidebar content";
+  height: 100%;
+}
+
+.root-container-no-sidebar {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "content";
+  height: 100%;
 }

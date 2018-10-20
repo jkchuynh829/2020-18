@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import App from "./App";
+import Root from "./modules/Root";
 import { configureStore } from "./config/configureStore";
 import { HashRouter as Router } from "react-router-dom";
 
@@ -12,15 +12,15 @@ const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
     <Router basename="/">
-      <App />
+      <Root />
     </Router>
   </Provider>,
   document.getElementById("root")
 );
 
 if (module.hot && process.env.NODE_ENV === "development") {
-  module.hot.accept("./App.js", () => {
-    const NextApp = require("./App.js").default;
+  module.hot.accept("./modules/Root.jsx", () => {
+    const NextApp = require("./modules/Root.jsx").default;
     ReactDOM.render(<NextApp />, document.getElementById("root"));
   });
 }
