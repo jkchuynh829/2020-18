@@ -1,29 +1,49 @@
 import React, { Component } from "react";
-import { Sidebar } from "./layout/Sidebar";
-import { RouteContainer } from "./layout/RouteContainer";
+import { connect } from "react-redux";
+import { Redirect, Route, withRouter } from "react-router-dom";
 
-class Root extends Component {
-  state = {
-    isSidebarVisible: true,
-  };
+import { Container } from "./layout/Container";
+import { AuthContainerWrapped as AuthContainer } from "./auth/Container";
+// import { SaverContainerWrapped as SaverContainer } from "./saver/RouteContainer";
 
-  toggleSidebar = () => {
-    this.setState({ isSidebarVisible: !this.state.isSidebarVisible });
-  };
-
+export class Root extends Component {
   render() {
-    const { isSidebarVisible } = this.state;
-    const classNames = isSidebarVisible
-      ? "root-container"
-      : "root-container-no-sidebar";
+    const { isLoggedIn, history, userType } = this.props;
+    console.log(userType);
+
+    if (
+      isLoggedIn &&
+      userType &&
+      !history.location.pathname.includes("/user")
+    ) {
+      return <Redirect to={`/user/${userType}`} />;
+    }
+
+    if (
+      (!userType || (!isLoggedIn && userType)) &&
+      history.location.pathname !== "/"
+    ) {
+      return <Redirect to="/" />;
+    }
 
     return (
-      <div className={classNames}>
-        {isSidebarVisible && <Sidebar />}
-        <RouteContainer isSidebarVisible={isSidebarVisible} />
-      </div>
+      <>
+        <Route path="/" exact={true} component={AuthContainer} />
+        <Route path="/user" component={Container} />
+        {/* <Route path="/user/saver" exact={true} component={SaverContainer} /> */}
+      </>
     );
   }
 }
 
-export default Root;
+const mapStateToProps = state => ({
+  isLoggedIn: state.auth.isLoggedIn,
+  userType: state.auth.user.type,
+});
+
+export const RootWrapped = withRouter(
+  connect(
+    mapStateToProps,
+    {}
+  )(Root)
+);

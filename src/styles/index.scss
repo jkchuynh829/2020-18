@@ -1,5 +1,6 @@
 @import "variables";
 @import "./layout/index";
+@import "./auth/index";
 
 html {
   background-color: #fafafa;
@@ -24,14 +25,20 @@ body {
 
 .root-container {
   display: grid;
+  grid-template-rows: 5rem 1fr;
   grid-template-columns: 30rem 1fr;
-  grid-template-areas: "sidebar content";
+  grid-template-areas:
+    "top-bar top-bar"
+    "sidebar content";
   height: 100%;
 }
 
 .root-container-no-sidebar {
   display: grid;
+  grid-template-rows: 5rem 1fr;
   grid-template-columns: 1fr;
-  grid-template-areas: "content";
+  grid-template-areas:
+    "top-bar"
+    "content";
   height: 100%;
 }

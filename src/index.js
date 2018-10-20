@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import Root from "./modules/Root";
+import { RootWrapped as Root } from "./modules/Root";
 import { configureStore } from "./config/configureStore";
 import { HashRouter as Router } from "react-router-dom";
 
