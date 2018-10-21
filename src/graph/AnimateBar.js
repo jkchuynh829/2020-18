@@ -1,7 +1,7 @@
 export class AnimateBar {
   stepCount = 0;
 	rectWidth = 20;
-	colors = [0x34564, 0xFFFFF, 0x57222];
+	colors = [0x003087, 0x009CDE, 0xFBC600];
 	constructor(data, duration, graphOrigin) {
 		this.data = data;
 		this.duration = duration;

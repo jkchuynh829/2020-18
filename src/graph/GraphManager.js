@@ -57,7 +57,7 @@ export class GraphManager {
       this.bars.push({"date" : date, "value" : val, "id": count});
       count++;
     }
-  this.bars.forEach((bar,ind) => {!(ind % this.spacing) ? setTimeout(this.makeBarAndLabel,this.getInterval() * 50, bar) : this.makeBar(null)});
+  this.bars.forEach((bar,ind, arr) => {!(ind % this.spacing) && ind < arr.length -5 ? setTimeout(this.makeBarAndLabel,this.getInterval() * 50, bar) : this.makeBar(null)});
 
   }
 

@@ -13,6 +13,7 @@ import {
   ContentHeader,
   SavingCertificateDetails,
   ButtonSmall,
+  Button,
 } from "../../../components";
 
 export class DashboardContainer extends React.PureComponent {
@@ -27,7 +28,6 @@ export class DashboardContainer extends React.PureComponent {
   };
 
   format = data => {
-    console.log("format" + data);
     return data.reduce((acc, ele) => {
       acc.push({
         loanDuration: ele.term_length,
@@ -55,10 +55,32 @@ export class DashboardContainer extends React.PureComponent {
             <div />
           )}
         </div>
-        <div className="saver-new-account">
-          <ButtonSmall text="New Account" onClick={this.onClickNew} />
-        </div>
+        {savingsAccounts.length !== 0 && (
+          <div className="saver-new-account">
+            <ButtonSmall text="New Account" onClick={this.onClickNew} />
+          </div>
+        )}
         <ContentHeader title="My Open Accounts" />
+        {savingsAccounts.length === 0 && (
+          <div>
+            <p>
+              Our Zero-Risk Savings Certificate is one of the safest ways for
+              you to put money away, earn a good return, and support your own
+              community at the same time.
+            </p>
+            <p>
+              Purchase one today to back a local entrepreneur. Once purchased,
+              you'll start receiving monthly payments until the certificate's
+              maturity date.{" "}
+            </p>
+            <p>
+              You can also withdraw your savings (interest included) at any
+              point.
+            </p>
+            <p style={{ paddingTop: "3rem" }} />
+            <Button text="Open New Account" onClick={this.onClickNew} />
+          </div>
+        )}
         {savingsAccounts.map(savingsAccount => {
           const loan = loans.find(
             loan => String(loan.id) === String(savingsAccount.loan_id)

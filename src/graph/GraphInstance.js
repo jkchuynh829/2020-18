@@ -25,9 +25,9 @@ export class GraphInstance {
     this.linkLayer = new PIXI.Graphics();
     this.nodeLayer = new PIXI.Graphics();
     this.labelLayer = new PIXI.Graphics();
-    this.background.addChild(this.linkLayer);
     this.background.addChild(this.nodeLayer);
-    this.background.addChild(this.labelLayer);
+    this.background.addChild(this.linkLayer);
+    // this.background.addChild(this.labelLayer);
     this.interval = null;
   }
 
@@ -105,7 +105,7 @@ export class GraphInstance {
       this.graph.clear();
       Object.keys(this.graphEdges).forEach(key => this.graphEdges[key].animate());
       Object.keys(this.graphVertices).forEach(key => this.graphVertices[key].animate());
-      Object.keys(this.graphLabels).forEach(key => this.graphLabels[key].animate());
+      // Object.keys(this.graphLabels).forEach(key => this.graphLabels[key].animate());
       this.steps++;
     }
   }

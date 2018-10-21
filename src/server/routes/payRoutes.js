@@ -99,6 +99,10 @@ module.exports = function(app, paypal) {
       .substring(9);
 
     const create_payout_json = {
+      sender_batch_header: {
+        sender_batch_id: sender_batch_id,
+        email_subject: "You have a payment",
+      },
       items: [
         {
           recipient_type: "EMAIL",

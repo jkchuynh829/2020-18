@@ -8,7 +8,6 @@ export class GraphDataConverter {
 
   getTimeFrame() {
     let range = this.data.reduce((acc, ele, ind) => {
-      
       if (ele.startDate < acc.start) {
         acc.start = ele.startDate;
       }

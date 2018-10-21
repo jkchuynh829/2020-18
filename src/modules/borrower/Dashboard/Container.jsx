@@ -35,7 +35,7 @@ export class BorrowerDashboard extends React.PureComponent {
       loan => loanCurrents[loan.id] >= loan.amount
     );
     const activeCampaigns = loans.filter(
-      loan => loanCurrents[loan.id] < loan.amount
+      loan => loanCurrents[loan.id] - 1 < loan.amount
     );
 
     return (
@@ -94,10 +94,16 @@ export class BorrowerDashboard extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  loans: state.borrower.loans,
-  allSavingsAccounts: state.saver.allSavingsAccounts,
-});
+const mapStateToProps = state => {
+  const loans = state.borrower.loans.filter(
+    loan => String(loan.user_id) === String(state.auth.user.id)
+  );
+
+  return {
+    loans,
+    allSavingsAccounts: state.saver.allSavingsAccounts,
+  };
+};
 
 export const BorrowerDashboardWrapped = connect(
   mapStateToProps,
