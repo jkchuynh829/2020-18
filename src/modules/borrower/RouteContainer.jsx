@@ -1,9 +1,19 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
+import { ApplyContainerWrapped as Apply } from "./Apply/Container";
+import { ApprovedContainerWrapped as Approved } from "./Approved/Container";
+import { BorrowerDashboardWrapped as Dashboard } from "./Dashboard/Container";
 
 export class BorrowerContainer extends React.PureComponent {
   render() {
-    return <div className="borrower-container">Borrower</div>;
+    return (
+      <div className="borrower-container">
+        <Route path="/user/borrower" exact={true} component={Apply} />
+        <Route path="/user/borrower/apply" component={Apply} />
+        <Route path="/user/borrower/approved" component={Approved} />
+        <Route path="/user/borrower/dashboard" component={Dashboard} />
+      </div>
+    );
   }
 }
 

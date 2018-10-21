@@ -7,11 +7,11 @@ import { LoanerContainerWrapped as LoanerContainer } from "../loaner/RouteContai
 export class RouteContainer extends React.PureComponent {
   render() {
     return (
-      <>
+      <div className="content-container">
         <Route path="/user/saver" component={SaverContainer} />
         <Route path="/user/borrower" component={BorrowerContainer} />
         <Route path="/user/loaner" component={LoanerContainer} />
-      </>
+      </div>
     );
   }
 }

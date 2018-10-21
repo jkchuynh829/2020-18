@@ -1,9 +1,14 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
+import { DashboardContainerWrapped as Dashboard } from "./Dashboard/Container";
 
 export class SaverContainer extends React.PureComponent {
   render() {
-    return <div className="saver-container">Saver</div>;
+    return (
+      <div className="saver-container">
+        <Route path="/user/saver" exact={true} component={Dashboard} />
+      </div>
+    );
   }
 }
 

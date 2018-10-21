@@ -2,6 +2,7 @@
 @import "./components/index";
 @import "./layout/index";
 @import "./auth/index";
+@import "./borrower/index";
 
 html {
   font-size: 10px;
@@ -31,7 +32,7 @@ body {
 
 .root-container {
   display: grid;
-  grid-template-rows: 5rem 1fr;
+  grid-template-rows: 4rem 1fr;
   grid-template-columns: 30rem 1fr;
   grid-template-areas:
     "top-bar top-bar"
@@ -41,7 +42,7 @@ body {
 
 .root-container-no-sidebar {
   display: grid;
-  grid-template-rows: 5rem 1fr;
+  grid-template-rows: 4rem 1fr;
   grid-template-columns: 1fr;
   grid-template-areas:
     "top-bar"

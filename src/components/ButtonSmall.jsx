@@ -1,10 +1,10 @@
 import React from "react";
 
-export class Button extends React.PureComponent {
+export class ButtonSmall extends React.PureComponent {
   render() {
     const { onClick, text, disabled = false } = this.props;
-    const classNames = `button-primary ${
-      disabled ? "button-primary-disabled" : ""
+    const classNames = `button-primary-small ${
+      disabled ? "button-primary-small-disabled" : ""
     }`;
 
     return (
