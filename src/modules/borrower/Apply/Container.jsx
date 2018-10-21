@@ -48,7 +48,8 @@ export class ApplyContainer extends React.PureComponent {
     const { name1, purpose, amount, term } = this.state;
 
     this.getCredit().then(data => {
-      if (Number(data.syfCreditScore) > Number(500)) {
+      console.log(JSON.parse(data.data).syfCreditScore);
+      if (Number(JSON.parse(data.data).syfCreditScore) > Number(500)) {
         this.props.createLoan({
           userId: this.props.userId,
           title: name1,

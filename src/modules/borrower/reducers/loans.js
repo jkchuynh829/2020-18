@@ -5,7 +5,7 @@ const initialState = [];
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case createLoanSuccess: {
-      return action.response.data;
+      return [...state, action.response.data];
     }
 
     case getLoansSuccess: {

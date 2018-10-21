@@ -2,8 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { changeTopBarCopy } from "../../layout/actions";
-import { getSavingsAccounts } from "../../saver/actions";
-import { getLoans } from "../actions";
+import { getSavingsAccounts, getLoans } from "../../saver/actions";
 import { ContentHeader } from "../../../components/ContentHeader";
 import { ProgressBar } from "../../../components/ProgressBar";
 import { LoanDetails } from "../../../components/LoanDetails";
@@ -12,7 +11,7 @@ import { Button } from "../../../components/Button";
 export class BorrowerDashboard extends React.PureComponent {
   componentDidMount() {
     this.props.changeTopBarCopy("Manage Applications");
-    this.props.getLoans({ userId: "5" });
+    this.props.getLoans();
     this.props.getSavingsAccounts();
   }
 
@@ -38,6 +37,7 @@ export class BorrowerDashboard extends React.PureComponent {
       loan => loanCurrents[loan.id] - 1 < loan.amount
     );
 
+    console.log("loans", loans);
     return (
       <div className="borrower-dashboard-container">
         <ContentHeader title="Apply for a Loan" />
@@ -65,7 +65,7 @@ export class BorrowerDashboard extends React.PureComponent {
         {loans.map(loan => {
           const { purpose, amount, id } = loan;
           const completed = loanCurrents[id] || 0;
-          const isLoanFunded = completed >= amount;
+          const isLoanFunded = completed >= Number(amount);
 
           if (!isLoanFunded) {
             return null;
@@ -88,7 +88,7 @@ export class BorrowerDashboard extends React.PureComponent {
         {loans.map(loan => {
           const { purpose, amount, id } = loan;
           const completed = loanCurrents[id] || 0;
-          const isLoanFunded = completed - 1 < amount;
+          const isLoanFunded = completed - 1 < Number(amount);
 
           if (isLoanFunded) {
             return null;
@@ -109,9 +109,11 @@ export class BorrowerDashboard extends React.PureComponent {
 }
 
 const mapStateToProps = state => {
-  const loans = state.borrower.loans.filter(
-    loan => String(loan.user_id) === String(state.auth.user.id)
+  const loans = state.saver.loans.filter(
+    loan => Number(loan.user_id) === Number(state.auth.user.id)
   );
+
+  console.log(loans, state.borrower.loans);
 
   return {
     loans,

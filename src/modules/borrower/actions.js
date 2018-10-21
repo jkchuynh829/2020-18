@@ -10,6 +10,7 @@ import {
 
 export const createLoan = ({
   userId,
+  title,
   amount,
   purpose,
   termLength,
@@ -26,6 +27,7 @@ export const createLoan = ({
   info: { timestamp: new Date().toISOString() },
   data: {
     userId,
+    title,
     amount,
     purpose,
     termLength,
