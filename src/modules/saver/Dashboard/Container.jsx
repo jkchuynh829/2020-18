@@ -3,7 +3,11 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Graph } from "../../Graph";
 
-import { getSavingsAccountsByUserId, getLoans } from "../actions";
+import {
+  getSavingsAccountsByUserId,
+  getLoans,
+  withDrawSavingsAccount,
+} from "../actions";
 import { changeTopBarCopy } from "../../layout/actions";
 import {
   ContentHeader,
@@ -35,16 +39,26 @@ export class DashboardContainer extends React.PureComponent {
     }, []);
   };
   render() {
-    const { savingsAccounts, loans } = this.props;
+    const {
+      savingsAccounts,
+      loans,
+      withDrawSavingsAccount,
+      userEmail,
+    } = this.props;
 
     return (
       <div className="saver-dashboard-container">
+        <div className="saver-chart">
+          {savingsAccounts.length ? (
+            <Graph data={this.format(savingsAccounts)} />
+          ) : (
+            <div />
+          )}
+        </div>
         <div className="saver-new-account">
           <ButtonSmall text="New Account" onClick={this.onClickNew} />
         </div>
         <ContentHeader title="My Open Accounts" />
-        <Graph data={this.format(this.props.savingsAccounts)} />
-
         {savingsAccounts.map(savingsAccount => {
           const loan = loans.find(
             loan => String(loan.id) === String(savingsAccount.loan_id)
@@ -59,14 +73,11 @@ export class DashboardContainer extends React.PureComponent {
               interestRate="5"
               monthsLeft={savingsAccount.term_length}
               currentTotal={savingsAccount.amount}
+              userEmail={userEmail}
+              withDrawSavingsAccount={withDrawSavingsAccount}
             />
           );
         })}
-        {savingsAccounts ? (
-          <Graph data={this.format(savingsAccounts)} />
-        ) : (
-          <div />
-        )}
       </div>
     );
   }
@@ -74,6 +85,7 @@ export class DashboardContainer extends React.PureComponent {
 
 const mapStateToProps = state => ({
   userId: state.auth.user.id,
+  userEmail: state.auth.user.email,
   loans: state.saver.loans,
   savingsAccounts: state.saver.savingsAccounts,
 });
@@ -81,6 +93,11 @@ const mapStateToProps = state => ({
 export const DashboardContainerWrapped = withRouter(
   connect(
     mapStateToProps,
-    { changeTopBarCopy, getLoans, getSavingsAccountsByUserId }
+    {
+      changeTopBarCopy,
+      getLoans,
+      getSavingsAccountsByUserId,
+      withDrawSavingsAccount,
+    }
   )(DashboardContainer)
 );

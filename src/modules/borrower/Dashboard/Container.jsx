@@ -7,7 +7,7 @@ import { getLoans } from "../actions";
 import { ContentHeader } from "../../../components/ContentHeader";
 import { ProgressBar } from "../../../components/ProgressBar";
 import { LoanDetails } from "../../../components/LoanDetails";
-import { Button } from '../../../components/Button';
+import { Button } from "../../../components/Button";
 
 export class BorrowerDashboard extends React.PureComponent {
   componentDidMount() {
@@ -31,20 +31,27 @@ export class BorrowerDashboard extends React.PureComponent {
   render() {
     const { loans } = this.props;
     const loanCurrents = this.getLoanCurrents();
-    const fundedLoans = loans.filter(loan => loanCurrents[loan.id] >= loan.amount);
-    const activeCampaigns = loans.filter(loan => loanCurrents[loan.id] < loan.amount);
+    const fundedLoans = loans.filter(
+      loan => loanCurrents[loan.id] >= loan.amount
+    );
+    const activeCampaigns = loans.filter(
+      loan => loanCurrents[loan.id] < loan.amount
+    );
 
     return (
       <div className="borrower-dashboard-container">
         <ContentHeader title="Apply for a Loan" />
         <div className="borrower-button-container">
-          <Button text="Start an application" onClick={() => this.props.history.push('/user/borrower/apply')} />
+          <Button
+            text="Start an application"
+            onClick={() => this.props.history.push("/user/borrower/apply")}
+          />
         </div>
         {fundedLoans.length > 0 && <ContentHeader title="Funded Loans" />}
         {loans.map(loan => {
           const { purpose, amount, id } = loan;
           const completed = loanCurrents[id] || 0;
-          const isLoanFunded = completed > amount;
+          const isLoanFunded = completed >= amount;
 
           if (!isLoanFunded) {
             return null;
@@ -61,11 +68,13 @@ export class BorrowerDashboard extends React.PureComponent {
             />
           );
         })}
-        {activeCampaigns.length > 0 && <ContentHeader title="My Loan Applications" />}
+        {activeCampaigns.length > 0 && (
+          <ContentHeader title="My Loan Applications" />
+        )}
         {loans.map(loan => {
           const { purpose, amount, id } = loan;
           const completed = loanCurrents[id] || 0;
-          const isLoanFunded = completed > amount;
+          const isLoanFunded = completed - 1 < amount;
 
           if (isLoanFunded) {
             return null;

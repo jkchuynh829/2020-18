@@ -1,10 +1,15 @@
 .saver-dashboard-container {
   position: relative;
 
+  .saver-chart {
+    margin-top: -1rem;
+    padding-bottom: 3rem;
+  }
+
   .saver-new-account {
     position: absolute;
     right: 0rem;
-    top: 0.4rem;
+    top: 23.5rem;
   }
 
   #graph {

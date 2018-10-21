@@ -15,6 +15,9 @@ import {
   paySavingsAccountRequest,
   paySavingsAccountFailure,
   paySavingsAccountSuccess,
+  payOutSavingsAccountRequest,
+  payOutSavingsAccountFailure,
+  payOutSavingsAccountSuccess,
 } from "./constants";
 
 export const getLoansByUserId = ({ userId }) => ({
@@ -111,5 +114,21 @@ export const paySavingsAccount = ({ amount, description }) => ({
   data: {
     amount,
     description,
+  },
+});
+
+export const withDrawSavingsAccount = ({ amount, email }) => ({
+  type: REMOTE_REQUEST,
+  types: {
+    request: payOutSavingsAccountRequest,
+    failure: payOutSavingsAccountFailure,
+    success: payOutSavingsAccountSuccess,
+  },
+  method: "POST",
+  url: "/payout",
+  info: { timestamp: new Date().toISOString() },
+  data: {
+    amount,
+    email,
   },
 });

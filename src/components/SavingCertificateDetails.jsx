@@ -2,6 +2,11 @@ import React from "react";
 import { ButtonSmall } from "./";
 
 export class SavingCertificateDetails extends React.PureComponent {
+  withDraw = () => {
+    const { withDrawSavingsAccount, userEmail, currentTotal } = this.props;
+    withDrawSavingsAccount({ email: userEmail, amount: currentTotal });
+  };
+
   render() {
     const {
       title,
