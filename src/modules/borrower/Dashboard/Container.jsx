@@ -88,10 +88,10 @@ export class BorrowerDashboard extends React.PureComponent {
         {loans.map(loan => {
           const { purpose, amount, id } = loan;
           const completed = loanCurrents[id] || 0;
-          const isLoanFunded = completed - 1 < Number(amount);
+          const isLoanFunded = completed - 1 > Number(amount);
           console.log(isLoanFunded, completed, amount);
 
-          if (!isLoanFunded) {
+          if (isLoanFunded) {
             return null;
           }
 
