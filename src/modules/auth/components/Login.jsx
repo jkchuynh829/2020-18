@@ -1,7 +1,7 @@
 import React from "react";
 import * as logo from "../../../logo.png";
 import { connect } from "react-redux";
-import { login } from "../actions";
+import { getUser } from "../actions";
 import { Button, ButtonSmall, TextField } from "../../../components";
 
 export class Login extends React.PureComponent {
@@ -15,7 +15,7 @@ export class Login extends React.PureComponent {
   };
 
   onLogin = () => {
-    this.props.login(this.state.username);
+    this.props.getUser(this.state.username);
   };
 
   render() {
@@ -57,5 +57,5 @@ export class Login extends React.PureComponent {
 
 export const LoginWrapped = connect(
   () => ({}),
-  { login }
+  { getUser }
 )(Login);

@@ -1,4 +1,4 @@
-import { registerSuccess, loginSuccess } from "../constants";
+import { registerSuccess, getUserSuccess } from "../constants";
 
 const initialState = {};
 
@@ -10,22 +10,11 @@ export const reducer = (state = initialState, action) => {
       };
     }
 
-    case loginSuccess: {
-      const { userId } = action;
-      let userType;
+    case getUserSuccess: {
+      const { response } = action;
+      const user = response.data[0];
 
-      if (userId === "sandra@gmail.com") {
-        userType = "saver";
-      }
-
-      if (userId === "joseph@gmail.com") {
-        userType = "borrower";
-      }
-
-      return {
-        userId: userId,
-        type: userType,
-      };
+      return user;
     }
 
     default:

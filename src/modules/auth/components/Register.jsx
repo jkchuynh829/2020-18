@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 import { register } from "../actions";
 import { Button, TextField } from "../../../components";
 import { TopBar } from "./TopBar";
-import { UserTypeOption } from "./UserTypeOption";
 
 export class Register extends React.PureComponent {
   state = {
     firstName: "",
     lastName: "",
     email: "",
+    userType: "",
     selectedUserType: "",
   };
 
@@ -36,7 +36,7 @@ export class Register extends React.PureComponent {
   };
 
   render() {
-    const { firstName, lastName, email } = this.state;
+    const { firstName, lastName, email, userType } = this.state;
 
     return (
       <div className="register-container">
@@ -60,6 +60,12 @@ export class Register extends React.PureComponent {
               field="email"
               placeholder="email"
               value={email}
+              onChange={this.onChange}
+            />
+            <TextField
+              field="userType"
+              placeholder="saver or borrower"
+              value={userType}
               onChange={this.onChange}
             />
             {/* <UserTypeOption

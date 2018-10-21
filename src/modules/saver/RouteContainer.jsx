@@ -2,7 +2,7 @@ import React from "react";
 import { Route, withRouter } from "react-router-dom";
 import { DashboardContainerWrapped as Dashboard } from "./Dashboard/Container";
 import { CertificatesContainerWrapped as Certificates } from "./Certificates/Container";
-import { NewCertificate } from "./Certificates/NewCertificate";
+import { NewCertificateWrapped as NewCertificate } from "./Certificates/NewCertificate";
 
 export class SaverContainer extends React.PureComponent {
   render() {

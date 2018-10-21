@@ -1,13 +1,14 @@
 module.exports = function(app, db) {
   app.post("/create_user", (req, res) => {
     let query =
-      "INSERT INTO users(user_type, first_name, last_name, email, business_name, description, location, created_at, updated_at) VALUES($1, $2, $3, $4, $5, $6, $7, now(), now())";
+      "INSERT INTO users(user_type, first_name, last_name, email, password, business_name, description, location) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *";
     let body = req.body;
     let insert_values = [
       body.userType,
       body.firstName,
       body.lastName,
       body.email,
+      body.password,
       body.businessName,
       body.description,
       body.location,
@@ -17,10 +18,34 @@ module.exports = function(app, db) {
         console.log(`CREATE USER ERROR: ${err}`);
         res.status(500).end();
       } else {
-        console.log("CREATE USER RESULT: " + JSON.stringify(result));
         return res
           .status(201)
-          .json(result)
+          .json(result["rows"][0])
+          .end();
+      }
+    });
+  });
+
+  app.get("/users", (req, res) => {
+    let query;
+    if (req.query.email != null) {
+      query = {
+        name: "find-user",
+        text: `SELECT * FROM users WHERE email = $1`,
+        values: [req.query.email],
+      };
+    } else {
+      query = "SELECT * FROM users;";
+    }
+
+    db.query(query, (err, result) => {
+      if (err) {
+        console.log(`GET USERS ERROR: ${err}`);
+        res.status(500).end();
+      } else {
+        res
+          .status(200)
+          .json(result["rows"])
           .end();
       }
     });
@@ -28,7 +53,7 @@ module.exports = function(app, db) {
 
   app.post("/savings_accounts", (req, res) => {
     let query =
-      "INSERT INTO savings_accounts(user_id, loan_id, amount, term_length, term_rate, created_at, updated_at) VALUES($1, $2, $3, $4, $5, now(), now())";
+      "INSERT INTO savings_accounts(user_id, loan_id, amount, term_length, term_rate) VALUES($1, $2, $3, $4, $5) RETURNING *";
     let body = req.body;
     let insert_values = [
       body.userId,
@@ -44,7 +69,7 @@ module.exports = function(app, db) {
       } else {
         res
           .status(201)
-          .json(result)
+          .json(result["rows"][0])
           .end();
       }
     });
@@ -69,10 +94,11 @@ module.exports = function(app, db) {
 
   app.post("/loans", (req, res) => {
     let query =
-      "INSERT INTO loans(user_id, amount, purpose, term_length, term_rate, created_at, updated_at) VALUES($1, $2, $3, $4, $5, now(), now())";
+      "INSERT INTO loans(user_id, title, amount, purpose, term_length, term_rate) VALUES($1, $2, $3, $4, $5, $6) RETURNING *";
     let body = req.body;
     let insert_values = [
       body.userId,
+      body.title,
       body.amount,
       body.purpose,
       body.termLength,
@@ -85,7 +111,23 @@ module.exports = function(app, db) {
       } else {
         res
           .status(201)
-          .json(result)
+          .json(result["rows"][0])
+          .end();
+      }
+    });
+  });
+
+  app.get("/loans", (req, res) => {
+    let query = "SELECT * FROM loans";
+
+    db.query(query, (err, result) => {
+      if (err) {
+        console.log(`GET LOANS ERROR: ${err}`);
+        res.status(500).end();
+      } else {
+        res
+          .status(200)
+          .json(result["rows"])
           .end();
       }
     });

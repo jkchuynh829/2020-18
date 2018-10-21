@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
+import { getSavingsAccounts } from "..//actions";
 import { changeTopBarCopy } from "../../layout/actions";
 import {
   ContentHeader,
@@ -12,6 +13,7 @@ import {
 export class DashboardContainer extends React.PureComponent {
   componentDidMount() {
     this.props.changeTopBarCopy("Savings Certificates");
+    this.props.getSavingsAccounts({ userId: this.props.userId });
   }
 
   onClickNew = () => {
@@ -19,6 +21,8 @@ export class DashboardContainer extends React.PureComponent {
   };
 
   render() {
+    console.log(this.props.savingsAccounts);
+
     return (
       <div className="saver-dashboard-container">
         <div className="saver-new-account">
@@ -51,11 +55,14 @@ export class DashboardContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  userId: state.auth.user.id,
+  savingsAccounts: state.saver.savingsAccounts,
+});
 
 export const DashboardContainerWrapped = withRouter(
   connect(
     mapStateToProps,
-    { changeTopBarCopy }
+    { changeTopBarCopy, getSavingsAccounts }
   )(DashboardContainer)
 );
