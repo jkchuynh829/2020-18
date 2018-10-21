@@ -21,7 +21,7 @@ export class AuthContainer extends React.PureComponent {
 
 const mapStateToProps = state => ({
   isLoggedIn: state.auth.isLoggedIn,
-  userType: state.auth.userType,
+  userType: state.auth.user.user_type,
 });
 
 export const AuthContainerWrapped = withRouter(

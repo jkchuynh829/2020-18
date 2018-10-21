@@ -27,5 +27,22 @@ DO $$
         EXCEPTION
             WHEN duplicate_column THEN RAISE NOTICE 'column synchrony_id already exists in users.';
         END;
+
+        BEGIN
+            ALTER TABLE loans ADD COLUMN title VARCHAR(50);
+        EXCEPTION
+            WHEN duplicate_column THEN RAISE NOTICE 'column title already exists in loans.';
+        END;
+
+        BEGIN
+            ALTER TABLE users ALTER COLUMN created_at SET DEFAULT NOW();
+            ALTER TABLE users ALTER COLUMN updated_at SET DEFAULT NOW();
+            ALTER TABLE loans ALTER COLUMN created_at SET DEFAULT NOW();
+            ALTER TABLE loans ALTER COLUMN updated_at SET DEFAULT NOW();
+            ALTER TABLE savings_accounts ALTER COLUMN created_at SET DEFAULT NOW();
+            ALTER TABLE savings_accounts ALTER COLUMN updated_at SET DEFAULT NOW();
+        EXCEPTION
+            WHEN duplicate_column THEN RAISE NOTICE 'default timestamps already added.';
+        END;
     END;
 $$

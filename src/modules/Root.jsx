@@ -4,18 +4,23 @@ import { Redirect, Route, withRouter } from "react-router-dom";
 import { Graph } from "./Graph";
 
 import { Container } from "./layout/Container";
+import { getUsers } from "./auth/actions";
 import { AuthContainerWrapped as AuthContainer } from "./auth/Container";
+import { RegisterWrapped as Register } from "./auth/components/Register";
 // import { SaverContainerWrapped as SaverContainer } from "./saver/RouteContainer";
 
 export class Root extends Component {
+  componentDidMount() {
+    this.props.getUsers();
+  }
+
   render() {
     const { isLoggedIn, history, userType } = this.props;
     const isLoginOrRegisterVisible =
-      (!userType || (!isLoggedIn && userType)) &&
-      history.location.pathname !== "/";
+      !userType && history.location.pathname !== "/";
 
     const isUserLoggedIn =
-      isLoggedIn && userType && !history.location.pathname.includes("/user");
+      userType && !history.location.pathname.includes("/user");
 
     if (isLoginOrRegisterVisible) {
       return <Redirect to="/" />;
@@ -28,6 +33,7 @@ export class Root extends Component {
     return (
       <>
         <Route path="/" exact={true} component={AuthContainer} />
+        <Route path="/register" exact={true} component={Register} />
         <Route path="/user" component={Container} />
         <Graph/>
         {/* <Route path="/user/saver" exact={true} component={SaverContainer} /> */}
@@ -38,12 +44,12 @@ export class Root extends Component {
 
 const mapStateToProps = state => ({
   isLoggedIn: state.auth.isLoggedIn,
-  userType: state.auth.user.type,
+  userType: state.auth.user.user_type,
 });
 
 export const RootWrapped = withRouter(
   connect(
     mapStateToProps,
-    {}
+    { getUsers }
   )(Root)
 );

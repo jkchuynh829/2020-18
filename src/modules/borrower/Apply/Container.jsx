@@ -1,22 +1,19 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import axios from "axios";
 
+import { createLoan } from "../actions";
 import { changeTopBarCopy } from "../../layout/actions";
 import { TextField } from "../../../components/TextField";
 import { Button } from "../../../components/Button";
-import Slider from '../../../components/Slider';
+import Slider from "../../../components/Slider";
 
 const SliderInput = ({ onChange, min, max, type, currentValue }) => (
   <div className="slider-container">
-    <h2>Term: {`${currentValue} month${currentValue > 1 ? 's' : ''}`}</h2>
+    <h2>Term: {`${currentValue} month${currentValue > 1 ? "s" : ""}`}</h2>
     <div className="slider-input">
-      <Slider
-        onChange={onChange}
-        min={min}
-        max={max}
-        type={type}
-      />
+      <Slider onChange={onChange} min={min} max={max} type={type} />
     </div>
   </div>
 );
@@ -26,7 +23,7 @@ export class ApplyContainer extends React.PureComponent {
     firstName: "Joe",
     lastName: "Smith",
     purpose: "",
-    amount: "",
+    amount: 0,
     term: 1,
   };
 
@@ -38,18 +35,37 @@ export class ApplyContainer extends React.PureComponent {
     this.setState({ [field]: value });
   };
 
-  onSliderChange = (value) => {
+  onSliderChange = value => {
     this.setState({ term: value });
   };
 
+  async getCredit() {
+    const json = await axios.get("http://localhost:8080/credit");
+    return json;
+  }
+
   onSubmit = () => {
-    this.props.history.push("/user/borrower/approved");
+    const { purpose, amount, term } = this.state;
+
+    this.getCredit().then(data => {
+      if (data.syfCreditScore > 680) {
+        this.props.createLoan({
+          userId: "5",
+          purpose,
+          amount,
+          termLength: term,
+          termRate: "20",
+        });
+        this.props.history.push("/user/borrower/approved");
+      }
+
+      this.props.history.push("/user/borrower/approved");
+    });
   };
 
   render() {
-    const { firstName, lastName, purpose, amount, term } = this.state;
-    const isButtonDisabled = purpose === "" || amount === "" || term === "";
-  
+    const { firstName, lastName, purpose, amount } = this.state;
+    const isButtonDisabled = purpose === "" || amount === 0;
     return (
       <div className="apply-container">
         <div className="apply-form">
@@ -84,13 +100,13 @@ export class ApplyContainer extends React.PureComponent {
             min={1}
             max={12}
             currentValue={this.state.term}
-            type='term'
+            type="term"
           />
         </div>
         <div className="apply-button">
           <Button
             text="Submit"
-            disabled={!isButtonDisabled}
+            disabled={isButtonDisabled}
             onClick={this.onSubmit}
           />
         </div>
@@ -104,6 +120,6 @@ const mapStateToProps = state => ({});
 export const ApplyContainerWrapped = withRouter(
   connect(
     mapStateToProps,
-    { changeTopBarCopy }
+    { changeTopBarCopy, createLoan }
   )(ApplyContainer)
 );

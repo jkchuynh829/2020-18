@@ -8,7 +8,7 @@ export class NewCertificateDetails extends React.PureComponent {
   };
 
   onSelect = () => {
-    this.props.history.push("/user/saver/certificates/1");
+    this.props.history.push(`/user/saver/certificates/${this.props.id}`);
   };
 
   toggleDetails = () => {
@@ -24,6 +24,7 @@ export class NewCertificateDetails extends React.PureComponent {
       interestRate,
       title,
       description,
+      postedBy,
     } = this.props;
 
     return (
@@ -31,18 +32,18 @@ export class NewCertificateDetails extends React.PureComponent {
         className="new-certificate-details-container"
         onClick={this.toggleDetails}
       >
-        {/* {isOpen && (
+        {isOpen && (
           <div className="new-certificate-details-card-header">
-            <ContentHeader title={title} />
+            <ContentHeader title={postedBy} />
           </div>
-        )} */}
+        )}
         <div className="new-certificate-progress-bar">
           <ProgressBar title={title} completed={completed} total={total} />
         </div>
         {isOpen && (
           <>
             <div className="new-certificate-term-details">
-              ${termLength} months at {interestRate}%
+              {termLength} months at {interestRate}%
             </div>
             <div className="new-certificate-term-description">
               {description}

@@ -8,7 +8,7 @@ export class BorrowerContainer extends React.PureComponent {
   render() {
     return (
       <div className="borrower-container">
-        <Route path="/user/borrower" exact={true} component={Apply} />
+        <Route path="/user/borrower" exact={true} component={Dashboard} />
         <Route path="/user/borrower/apply" component={Apply} />
         <Route path="/user/borrower/approved" component={Approved} />
         <Route path="/user/borrower/dashboard" component={Dashboard} />
