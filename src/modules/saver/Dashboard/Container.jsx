@@ -9,6 +9,7 @@ import {
   ContentHeader,
   SavingCertificateDetails,
   ButtonSmall,
+  Button,
 } from "../../../components";
 
 export class DashboardContainer extends React.PureComponent {
@@ -38,10 +39,15 @@ export class DashboardContainer extends React.PureComponent {
 
     return (
       <div className="saver-dashboard-container">
-        <div className="saver-new-account">
+        {savingsAccounts.length > 0 && <div className="saver-new-account">
           <ButtonSmall text="New Account" onClick={this.onClickNew} />
-        </div>
+        </div>}
         <ContentHeader title="My Open Accounts" />
+        {savingsAccounts.length === 0 &&
+          <div>
+            <p>Our Zero-Risk Savings Certificate is one of the safest ways for you to put money away, earn a good return, and support your own community at the same time. Purchase one today or pool your money with others to back a local entrepreneur. Once purchased, you'll start receiving monthly payments until the certificate's maturity date. You can also sell redeem your certificate after the first month without a penalty.</p>
+            <Button text="Open New Account" onClick={this.onClickNew} />
+          </div>}
         <Graph data={this.format(this.props.savingsAccounts)} />
 
         {savingsAccounts.map(savingsAccount => {

@@ -49,7 +49,7 @@ module.exports = function(app, paypal) {
         console.log("Create Payment Response");
         console.log(payment);
         for (var index = 0; index < payment.links.length; index++) {
-          //Redirect user to this endpoint for redirect url
+
           if (payment.links[index].rel === "approval_url") {
             const redirectUrl = payment.links[index].href;
             console.log(payment.links[index].href);
@@ -91,4 +91,55 @@ module.exports = function(app, paypal) {
   });
 
   app.get("/cancel", (req, res) => res.send("Cancelled"));
+
+  app.post("/payout", (req, res) => {
+    receiver_email = req.body.email
+    const sender_batch_id = Math.random().toString(36).substring(9);
+
+    const create_payout_json = {
+      "sender_batch_header": {
+          "sender_batch_id": sender_batch_id,
+          "email_subject": "You have a payment"
+      },
+      "items": [
+          {
+              "recipient_type": "EMAIL",
+              "amount": {
+                  "value": 0.90,
+                  "currency": "USD"
+              },
+              "receiver": receiver_email,
+              "note": "Thank you.",
+              "sender_item_id": "item_3"
+          }
+      ]
+    }
+
+    paypal.payout.create(create_payout_json, sync_mode, function (error, payout) {
+      // if (error) {
+      //     console.log(error.response);
+      //     throw error;
+      // } else {
+      //     console.log("Create Single Payout Response");
+      //     console.log(payout);
+      // }
+
+      if (error) {
+        console.log(error.response);
+        throw error;
+      } else {
+        console.log("Create Payment Response");
+        console.log(payout);
+        console.log("payout.links: " + payout.links)
+        for (var index = 0; index < payout.links.length; index++) {
+
+          if (payout.links[index].rel === "approval_url") {
+            const redirectUrl = payout.links[index].href;
+            console.log(payout.links[index].href);
+            res.json(redirectUrl);
+          }
+        }
+      }
+    });
+  });
 };
