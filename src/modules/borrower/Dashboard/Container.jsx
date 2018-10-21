@@ -19,11 +19,12 @@ export class BorrowerDashboard extends React.PureComponent {
     return (
       <div className="borrower-dashboard-container">
         <ContentHeader title="My Loan Applications" />
-        {loans.map(loan => {
+        {loans.map((loan, i) => {
           const { purpose, amount } = loan;
 
           return (
             <ProgressBar
+              key={`${i}-${purpose}`}
               title={purpose.substr(0, 13)}
               completed="150"
               total={amount}
