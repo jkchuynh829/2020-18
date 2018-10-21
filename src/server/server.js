@@ -11,6 +11,7 @@ const port = 8080;
 app.use(bodyParser.json());
 
 const db = require('./db');
+db.connect();
 
 // passport.serializeUser(function(user, done) {
 //     done(null, user);

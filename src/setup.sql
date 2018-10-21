@@ -4,4 +4,4 @@ CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY, user_type VARCHAR(20), d
 
 CREATE TABLE IF NOT EXISTS loans(id SERIAL PRIMARY KEY, uuid uuid DEFAULT uuid_generate_v4(), user_id BIGINT references users(id), amount INTEGER, purpose TEXT, term_length INTEGER, term_rate DECIMAL, created_at TIMESTAMP, updated_at TIMESTAMP);
 
-CREATE TABLE IF NOT EXISTS savings_accounts(id SERIAL PRIMARY KEY, uuid uuid DEFAULT uuid_generate_v4(), user_id BIGINT references users(id), loan_id BIGINT references loans(id), amount INTEGER, term_length INTEGER, term_rate INTEGER, created_at TIMESTAMP, updated_at TIMESTAMP); 
+CREATE TABLE IF NOT EXISTS savings_accounts(id SERIAL PRIMARY KEY, uuid uuid DEFAULT uuid_generate_v4(), user_id BIGINT references users(id), loan_id BIGINT references loans(id), amount INTEGER, term_length INTEGER, term_rate DECIMAL, created_at TIMESTAMP, updated_at TIMESTAMP); 
