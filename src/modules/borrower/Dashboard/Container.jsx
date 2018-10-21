@@ -45,6 +45,7 @@ export class BorrowerDashboard extends React.PureComponent {
 
           return (
             <LoanDetails
+              key={Math.random() * 100}
               title={purpose}
               total={amount}
               balance={amount - 100}
