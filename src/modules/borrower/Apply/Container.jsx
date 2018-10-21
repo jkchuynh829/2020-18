@@ -86,12 +86,12 @@ export class ApplyContainer extends React.PureComponent {
           <TextField
             field="purpose"
             value={purpose}
-            placeholder="purpose"
+            placeholder="Your pitch"
             onChange={this.onTextFieldChange}
           />
           <TextField
             field="amount"
-            value={amount}
+            value={amount > 0 ? amount : null}
             placeholder="amount"
             onChange={this.onTextFieldChange}
           />
