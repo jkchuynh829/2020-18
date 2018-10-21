@@ -60,16 +60,13 @@ export class NewCertificate extends React.PureComponent {
       <div className="new-certificate-container">
         <ContentHeader title={loan.title || "No title"} />
         <div className="new-certificate-item">
-          <div className="new-certificate-item-title">Length</div>
           <div className="new-certificate-item-value">
-            {loan.term_length} months
+            Term: {loan.term_length} months at {interestRate}%
           </div>
         </div>
-        <div className="new-certificate-item">
-          <div className="new-certificate-item-title">Interest Rate</div>
-          <div className="new-certificate-item-value">{interestRate}%</div>
+        <div className="new-certificate-slider">
+          <Slider onChange={this.onChange} min={10} max={loanMax} type="amount" />
         </div>
-        <Slider onChange={this.onChange} min={10} max={loanMax} type="amount" />
         <div className="new-certificate-amount">{`$${amount}`}</div>
         <div className="new-certificate-button">
           <Button text="Create Account" onClick={this.onCreate} />

@@ -66,7 +66,7 @@ export class BorrowerDashboard extends React.PureComponent {
 
           return (
             <ProgressBar
-              key={id}
+              key={Math.random() * 100}
               title={purpose.substr(0, 13)}
               completed={completed}
               total={amount}
