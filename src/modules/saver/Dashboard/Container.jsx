@@ -23,6 +23,7 @@ export class DashboardContainer extends React.PureComponent {
   };
 
   format = (data) => {
+    console.log("format" + data);
     return data.reduce((acc,ele) => {
       acc.push({
       "loanDuration" : ele.term_length,
@@ -49,7 +50,6 @@ export class DashboardContainer extends React.PureComponent {
           const title = (loan && loan.title) || "No Title";
 
           return (
-            <>
               <SavingCertificateDetails
                 title={title}
                 key={Math.random() * 100}
@@ -58,10 +58,9 @@ export class DashboardContainer extends React.PureComponent {
                 monthsLeft={savingsAccount.termLength}
                 currentTotal={savingsAccount.amount * 1.05}
               />
-              <Graph data={this.format(this.props.savingsAccounts)}/>
-            </>
           );
         })}
+        {savingsAccounts ? <Graph data={this.format(savingsAccounts)}/> : <div/> }
       </div>
     );
   }
