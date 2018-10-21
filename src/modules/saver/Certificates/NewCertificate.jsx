@@ -35,6 +35,8 @@ export class NewCertificate extends React.PureComponent {
       termLength: loan.term_length,
       termRate: interestRate,
     });
+
+    this.props.history.push(`/user/saver`);
   };
 
   getLoanMax = () => {
