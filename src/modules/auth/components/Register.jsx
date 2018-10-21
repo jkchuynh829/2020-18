@@ -18,9 +18,9 @@ export class Register extends React.PureComponent {
   };
 
   onContinue = () => {
-    const { firstName, lastName, email } = this.state;
+    const { firstName, lastName, email, userType } = this.state;
 
-    this.props.register({ firstName, lastName, email });
+    this.props.register({ firstName, lastName, email, userType });
   };
 
   selectSaver = () => {
