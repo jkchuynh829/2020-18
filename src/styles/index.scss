@@ -1,9 +1,9 @@
 @import "variables";
+@import "./components/index";
 @import "./layout/index";
 @import "./auth/index";
 
 html {
-  background-color: #fafafa;
   font-size: 10px;
   height: 100%;
 }
@@ -16,7 +16,13 @@ body {
 }
 
 #root {
+  background-image: linear-gradient(
+    150deg,
+    rgba(251, 198, 0, 1) 0%,
+    rgba(0, 156, 222, 1) 100%
+  );
   height: 100%;
+  color: #ffffff;
 }
 
 * {

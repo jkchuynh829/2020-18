@@ -5,7 +5,7 @@ import { RouteContainerWrapped as RouteContainer } from "./RouteContainer";
 
 export class Container extends React.PureComponent {
   state = {
-    isSidebarVisible: true,
+    isSidebarVisible: false,
   };
 
   toggleSidebar = () => {
