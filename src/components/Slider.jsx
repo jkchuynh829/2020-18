@@ -7,7 +7,7 @@ const SliderComponent = createSliderWithTooltip(SliderInput);
 const tipFormatter = (value, type) => {
   switch (type) {
     case "amount":
-      return `$${value}`;
+      return `Investment: $${value} / ROI: $${Math.floor(Math.round(value * 0.05))}`;
     case "term":
       return `${value} month${value > 1 ? "s" : ""}`;
     default:

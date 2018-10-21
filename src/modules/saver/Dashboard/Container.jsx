@@ -23,6 +23,7 @@ export class DashboardContainer extends React.PureComponent {
   };
 
   format = data => {
+    console.log("format" + data);
     return data.reduce((acc, ele) => {
       acc.push({
         loanDuration: ele.term_length,
@@ -61,6 +62,11 @@ export class DashboardContainer extends React.PureComponent {
             />
           );
         })}
+        {savingsAccounts ? (
+          <Graph data={this.format(savingsAccounts)} />
+        ) : (
+          <div />
+        )}
       </div>
     );
   }
