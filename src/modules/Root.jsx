@@ -21,8 +21,6 @@ export class Root extends Component {
     const isUserLoggedIn =
       userType && !history.location.pathname.includes("/user");
 
-    console.log(userType, isUserLoggedIn, isLoginOrRegisterVisible);
-
     if (isLoginOrRegisterVisible) {
       return <Redirect to="/" />;
     }

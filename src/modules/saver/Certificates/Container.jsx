@@ -38,7 +38,6 @@ export class CertificatesContainer extends React.PureComponent {
   render() {
     const { loans, users, userId, createSavingsAccount } = this.props;
     const loanCurrents = this.getLoanCurrents();
-    console.log(loanCurrents);
 
     return (
       <div className="saver-certificates-container">
@@ -48,7 +47,10 @@ export class CertificatesContainer extends React.PureComponent {
           const user = users.find(user => user.id === loan.user_id);
           const userFirstName = user && user.first_name;
           const completed = loanCurrents[id] || 0;
-          console.log(user, loan);
+
+          if (completed >= amount) {
+            return null;
+          }
 
           return (
             <NewCertificateDetails

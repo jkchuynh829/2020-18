@@ -2,14 +2,18 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { createSavingsAccount } from "../actions";
+import { createSavingsAccount, getSavingsAccounts } from "../actions";
 import { ContentHeader, Button } from "../../../components";
 import Slider from "../../../components/Slider";
 
 export class NewCertificate extends React.PureComponent {
   state = {
-    amount: 25,
+    amount: 10,
   };
+
+  componentDidMount() {
+    this.props.getSavingsAccounts();
+  }
 
   onChange = value => {
     this.setState({ amount: value });
@@ -33,11 +37,22 @@ export class NewCertificate extends React.PureComponent {
     });
   };
 
+  getLoanMax = () => {
+    const { savingsAccounts, loan } = this.props;
+
+    return savingsAccounts
+      .filter(
+        savingsAccount => String(savingsAccount.loan_id) === String(loan.id)
+      )
+      .reduce((acc, savingsAccount) => {
+        return acc - savingsAccount.amount;
+      }, loan.amount);
+  };
+
   render() {
     const { loan, interestRate = "5" } = this.props;
     const { amount } = this.state;
-
-    console.log("loan", loan);
+    const loanMax = this.getLoanMax();
 
     return (
       <div className="new-certificate-container">
@@ -52,12 +67,7 @@ export class NewCertificate extends React.PureComponent {
           <div className="new-certificate-item-title">Interest Rate</div>
           <div className="new-certificate-item-value">{interestRate}%</div>
         </div>
-        <Slider
-          onChange={this.onChange}
-          min={25}
-          max={loan.amount}
-          type="amount"
-        />
+        <Slider onChange={this.onChange} min={10} max={loanMax} type="amount" />
         <div className="new-certificate-amount">{`$${amount}`}</div>
         <div className="new-certificate-button">
           <Button text="Create Account" onClick={this.onCreate} />
@@ -75,6 +85,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     loan,
+    savingsAccounts: state.saver.allSavingsAccounts,
     userId: state.auth.user.id,
   };
 };
@@ -82,6 +93,6 @@ const mapStateToProps = (state, ownProps) => {
 export const NewCertificateWrapped = withRouter(
   connect(
     mapStateToProps,
-    { createSavingsAccount }
+    { createSavingsAccount, getSavingsAccounts }
   )(NewCertificate)
 );

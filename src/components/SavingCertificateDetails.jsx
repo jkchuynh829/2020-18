@@ -22,7 +22,7 @@ export class SavingCertificateDetails extends React.PureComponent {
         </div>
         <div className="loan-details-item">
           <div className="loan-details-item-title">Months Left</div>
-          <div className="loan-details-item-info">${monthsLeft} months</div>
+          <div className="loan-details-item-info">{monthsLeft} months</div>
         </div>
         <div className="loan-details-item">
           <div className="loan-details-item-title">Interest Rate</div>
