@@ -4,6 +4,7 @@ import { Redirect, Route, withRouter } from "react-router-dom";
 
 import { Container } from "./layout/Container";
 import { AuthContainerWrapped as AuthContainer } from "./auth/Container";
+import { RegisterWrapped as Register } from "./auth/components/Register";
 // import { SaverContainerWrapped as SaverContainer } from "./saver/RouteContainer";
 
 export class Root extends Component {
@@ -16,9 +17,9 @@ export class Root extends Component {
     const isUserLoggedIn =
       isLoggedIn && userType && !history.location.pathname.includes("/user");
 
-    if (isLoginOrRegisterVisible) {
-      return <Redirect to="/" />;
-    }
+    // if (isLoginOrRegisterVisible) {
+    //   return <Redirect to="/" />;
+    // }
 
     if (isUserLoggedIn) {
       return <Redirect to={`/user/${userType}`} />;
@@ -27,6 +28,7 @@ export class Root extends Component {
     return (
       <>
         <Route path="/" exact={true} component={AuthContainer} />
+        <Route path="/register" exact={true} component={Register} />
         <Route path="/user" component={Container} />
         {/* <Route path="/user/saver" exact={true} component={SaverContainer} /> */}
       </>

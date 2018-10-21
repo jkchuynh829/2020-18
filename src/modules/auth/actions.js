@@ -1,8 +1,16 @@
-import { loginSuccess, logoutSuccess, registerSuccess } from "./constants";
+import {
+  loginSuccess,
+  logoutSuccess,
+  registerSuccess,
+  registerFailure,
+  registerRequest,
+} from "./constants";
+import { REMOTE_REQUEST } from "../../middleware/constants";
 
-export const login = () => {
+export const login = userId => {
   return {
     type: loginSuccess,
+    userId,
   };
 };
 
@@ -12,9 +20,19 @@ export const logout = () => {
   };
 };
 
-export const register = userType => {
-  return {
-    type: registerSuccess,
-    userType,
-  };
-};
+export const register = ({ firstName, lastName, email }) => ({
+  type: REMOTE_REQUEST,
+  types: {
+    request: registerRequest,
+    failure: registerFailure,
+    success: registerSuccess,
+  },
+  method: "POST",
+  url: "/create_user",
+  info: { timestamp: new Date().toISOString() },
+  data: {
+    firstName,
+    lastName,
+    email,
+  },
+});

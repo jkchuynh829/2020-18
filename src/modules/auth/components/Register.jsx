@@ -1,17 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
 import { register } from "../actions";
-import { Button } from "../../../components";
+import { Button, TextField } from "../../../components";
 import { TopBar } from "./TopBar";
 import { UserTypeOption } from "./UserTypeOption";
 
 export class Register extends React.PureComponent {
   state = {
+    firstName: "",
+    lastName: "",
+    email: "",
     selectedUserType: "",
   };
 
+  onChange = (field, value) => {
+    this.setState({ [field]: value });
+  };
+
   onContinue = () => {
-    this.props.register(this.state.selectedUserType);
+    const { firstName, lastName, email } = this.state;
+
+    this.props.register({ firstName, lastName, email });
   };
 
   selectSaver = () => {
@@ -27,7 +36,7 @@ export class Register extends React.PureComponent {
   };
 
   render() {
-    const { selectedUserType } = this.state;
+    const { firstName, lastName, email } = this.state;
 
     return (
       <div className="register-container">
@@ -35,7 +44,25 @@ export class Register extends React.PureComponent {
         <div className="user-type-options">
           <div className="welcome-text">Welcome to Equalitee</div>
           <div className="user-type-list">
-            <UserTypeOption
+            <TextField
+              field="firstName"
+              placeholder="first name"
+              value={firstName}
+              onChange={this.onChange}
+            />
+            <TextField
+              field="lastName"
+              placeholder="last name"
+              value={lastName}
+              onChange={this.onChange}
+            />
+            <TextField
+              field="email"
+              placeholder="email"
+              value={email}
+              onChange={this.onChange}
+            />
+            {/* <UserTypeOption
               description="Apply for a low interest loan based on your ability to pay and backed by people who believe in your business."
               title="Apply for a loan"
               userType="borrower"
@@ -56,12 +83,13 @@ export class Register extends React.PureComponent {
               selectedUserType={selectedUserType}
               onClick={this.selectLoaner}
             />
+          {selectedUserType !== "" && ( */}
           </div>
-          {selectedUserType !== "" && (
-            <div className="continue-button">
-              <Button text="Continue" onClick={this.onContinue} />
-            </div>
-          )}
+
+          <div className="continue-button">
+            <Button text="Continue" onClick={this.onContinue} />
+          </div>
+          {/* )} */}
         </div>
       </div>
     );

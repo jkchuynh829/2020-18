@@ -25,6 +25,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+
   <title>React App</title>
 </head>
 
@@ -44,5 +45,18 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 </body>
+<script src='https://www.paypalobjects.com/js/external/api.js'></script>
+<script>
+  paypal.use(['login'], function (login) {
+    login.render({
+      "appid": "AV7_EMdAE2gA0Zoi1KKNjj40_Lw7YgiMVOVKY5C5gOZ9nCx45XFCQcCzJCxZ4lzXKLFZquabvZFYYo8a",
+      "authend": "sandbox",
+      "scopes": "openid",
+      "containerid": "paypal-login-button",
+      "locale": "en-us",
+      "returnurl": "http://localhost:3000/auth/paypal"
+    });
+  });
+</script>
 
 </html>
