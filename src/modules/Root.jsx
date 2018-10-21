@@ -16,7 +16,7 @@ export class Root extends Component {
   }
 
   render() {
-    const { isLoggedIn, history, userType } = this.props;
+    const { history, userType } = this.props;
     const isLoginOrRegisterVisible =
       !userType &&
       history.location.pathname !== "/" &&
@@ -39,7 +39,7 @@ export class Root extends Component {
         <Route path="/logout" exact={true} component={Logout} />
         <Route path="/register" exact={true} component={Register} />
         <Route path="/user" component={Container} />
-        <Graph/>
+        <Graph />
         {/* <Route path="/user/saver" exact={true} component={SaverContainer} /> */}
       </>
     );

@@ -1,6 +1,7 @@
 module.exports = function(app, paypal) {
   app.post("/pay", (req, res) => {
     let amount = req.body.amount;
+    let name = req.body.name;
 
     const create_payment_json = {
       intent: "sale",

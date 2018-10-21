@@ -1,5 +1,4 @@
 import React from "react";
-import groupBy from "lodash/groupBy";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
