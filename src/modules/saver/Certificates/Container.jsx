@@ -55,7 +55,7 @@ export class CertificatesContainer extends React.PureComponent {
           return (
             <NewCertificateDetails
               title={purpose.substr(0, 13)}
-              key={id}
+              key={Math.random() * 100}
               id={id}
               userId={userId}
               postedBy={userFirstName}
