@@ -1,3 +1,11 @@
+Notes:
+## DB setup:
+### In terminal:
+  - run `psql postgres`. YOu should be in psql cli.
+  - run `CREATE TABLE money202018;`
+  - type `\q` to quit cli.
+  - run `psql -f setup.sql money202018` to create tables.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
