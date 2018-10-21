@@ -23,15 +23,22 @@ export class CertificatesContainer extends React.PureComponent {
     this.props.history.push("/user/saver/certificates");
   };
 
+  getLoanCurrents = () => {
+    const { allSavingsAccounts } = this.props;
+
+    return allSavingsAccounts.reduce((acc, savingsAccount) => {
+      const current = acc[savingsAccount.loan_id]
+        ? acc[savingsAccount.loan_id] + savingsAccount.amount
+        : savingsAccount.amount;
+
+      return { ...acc, [savingsAccount.loan_id]: current };
+    }, {});
+  };
+
   render() {
-    const {
-      loans,
-      users,
-      userId,
-      createSavingsAccount,
-      allSavingsAccounts,
-    } = this.props;
-    console.log(allSavingsAccounts);
+    const { loans, users, userId, createSavingsAccount } = this.props;
+    const loanCurrents = this.getLoanCurrents();
+    console.log(loanCurrents);
 
     return (
       <div className="saver-certificates-container">
@@ -40,6 +47,7 @@ export class CertificatesContainer extends React.PureComponent {
           const { purpose, amount, term_length, id } = loan;
           const user = users.find(user => user.id === loan.user_id);
           const userFirstName = user && user.first_name;
+          const completed = loanCurrents[id] || 0;
           console.log(user, loan);
 
           return (
@@ -48,7 +56,7 @@ export class CertificatesContainer extends React.PureComponent {
               id={id}
               userId={userId}
               postedBy={userFirstName}
-              completed="50"
+              completed={completed}
               total={amount}
               interestRate="5"
               termLength={term_length}

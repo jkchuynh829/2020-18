@@ -8,7 +8,7 @@ export class NewCertificateDetails extends React.PureComponent {
   };
 
   onSelect = () => {
-    this.props.history.push("/user/saver/certificates/1");
+    this.props.history.push(`/user/saver/certificates/${this.props.id}`);
   };
 
   toggleDetails = () => {
