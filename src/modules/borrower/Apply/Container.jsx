@@ -46,19 +46,21 @@ export class ApplyContainer extends React.PureComponent {
 
   onSubmit = () => {
     const { purpose, amount, term } = this.state;
-    this.props.createLoan({
-      userId: "5",
-      purpose,
-      amount,
-      termLength: term,
-      termRate: "20",
-    });
+
     this.getCredit().then(data => {
       if (data.syfCreditScore > 680) {
+        this.props.createLoan({
+          userId: "5",
+          purpose,
+          amount,
+          termLength: term,
+          termRate: "20",
+        });
         this.props.history.push("/user/borrower/approved");
       }
+
+      this.props.history.push("/user/borrower/approved");
     });
-    // this.props.history.push("/user/borrower/approved");
   };
 
   render() {

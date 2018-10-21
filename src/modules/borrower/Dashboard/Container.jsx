@@ -40,6 +40,7 @@ export class BorrowerDashboard extends React.PureComponent {
 
           return (
             <ProgressBar
+              key={`${i}-${purpose}`}
               title={purpose.substr(0, 13)}
               completed={completed}
               total={amount}
