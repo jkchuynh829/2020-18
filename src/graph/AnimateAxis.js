@@ -23,7 +23,7 @@ export class AnimateAxis {
 		var x = ((1 - ratio) * this.eX) + (ratio * this.sX);
 		var y = ((1 - ratio) * this.eY) + (ratio * this.sY);
 		var coordinates = {x: x, y: y};
-		graphics.lineStyle(1,3,0.7,0.5);
+		graphics.lineStyle(2,0xFFFFF,1,0.5);
 		graphics.moveTo( this.sX,  this.sY);
 		graphics.lineTo(coordinates.x, coordinates.y);
 	}
