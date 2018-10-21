@@ -3,11 +3,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: space-evenly;
   width: 100%;
   height: 85%;
 
   .login-text {
+    width: 100%;
+    text-align: center;
     font-size: 3rem;
     font-weight: 400;
   }
