@@ -4,12 +4,18 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { changeTopBarCopy } from "../../layout/actions";
-import { getLoans, createSavingsAccount } from "../actions";
+import {
+  getLoans,
+  getSavingsAccounts,
+  getSavingsAccountsByUserId,
+  createSavingsAccount,
+} from "../actions";
 import { ContentHeader, NewCertificateDetails } from "../../../components";
 
 export class CertificatesContainer extends React.PureComponent {
   componentDidMount() {
-    this.props.getLoans({ userId: "5" });
+    this.props.getLoans();
+    this.props.getSavingsAccounts();
     this.props.changeTopBarCopy("Savings Certificates");
   }
 
@@ -18,7 +24,14 @@ export class CertificatesContainer extends React.PureComponent {
   };
 
   render() {
-    const { loans, users, userId, createSavingsAccount } = this.props;
+    const {
+      loans,
+      users,
+      userId,
+      createSavingsAccount,
+      allSavingsAccounts,
+    } = this.props;
+    console.log(allSavingsAccounts);
 
     return (
       <div className="saver-certificates-container">
@@ -51,6 +64,8 @@ export class CertificatesContainer extends React.PureComponent {
 
 const mapStateToProps = state => ({
   loans: state.saver.loans,
+  allSavingsAccounts: state.saver.allSavingsAccounts,
+  savingsAccounts: state.saver.savingsAccounts,
   userId: state.auth.user.id,
   users: state.auth.users,
 });
@@ -58,6 +73,12 @@ const mapStateToProps = state => ({
 export const CertificatesContainerWrapped = withRouter(
   connect(
     mapStateToProps,
-    { changeTopBarCopy, getLoans, createSavingsAccount }
+    {
+      changeTopBarCopy,
+      getLoans,
+      getSavingsAccounts,
+      getSavingsAccountsByUserId,
+      createSavingsAccount,
+    }
   )(CertificatesContainer)
 );

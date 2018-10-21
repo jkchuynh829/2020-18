@@ -133,6 +133,22 @@ module.exports = function(app, db) {
     });
   });
 
+  app.get("/savings_accounts", (req, res) => {
+    let query = "SELECT * FROM savings_accounts";
+
+    db.query(query, (err, result) => {
+      if (err) {
+        console.log(`GET LOANS ERROR: ${err}`);
+        res.status(500).end();
+      } else {
+        res
+          .status(200)
+          .json(result["rows"])
+          .end();
+      }
+    });
+  });
+
   app.get("/loans/:id", (req, res) => {
     let query = "SELECT * FROM loans WHERE id = $1 LIMIT 1";
     let id = req.params["id"];
