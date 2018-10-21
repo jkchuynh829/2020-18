@@ -33,28 +33,45 @@ export class BorrowerDashboard extends React.PureComponent {
 
     return (
       <div className="borrower-dashboard-container">
+        <ContentHeader title="Funded Loans" />
+        {loans.map(loan => {
+          const { purpose, amount, id } = loan;
+          const completed = loanCurrents[id] || 0;
+          const isLoanFunded = completed > amount;
+
+          if (!isLoanFunded) {
+            return null;
+          }
+
+          return (
+            <LoanDetails
+              title={purpose}
+              total={amount}
+              balance={amount - 100}
+              amountDue="20"
+              dueDate="11/1/2018"
+            />
+          );
+        })}
         <ContentHeader title="My Loan Applications" />
         {loans.map(loan => {
           const { purpose, amount, id } = loan;
           const completed = loanCurrents[id] || 0;
+          const isLoanFunded = completed > amount;
+
+          if (isLoanFunded) {
+            return null;
+          }
 
           return (
             <ProgressBar
-              key={`${i}-${purpose}`}
+              key={id}
               title={purpose.substr(0, 13)}
               completed={completed}
               total={amount}
             />
           );
         })}
-        <ContentHeader title="Funded Loans" />
-        <LoanDetails
-          title="Fertilizer"
-          total="500"
-          balance="300"
-          amountDue="20"
-          dueDate="11/1/2018"
-        />
       </div>
     );
   }
