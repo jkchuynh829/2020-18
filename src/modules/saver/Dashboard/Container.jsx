@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { Graph } from "../../Graph";
 
 import { getSavingsAccountsByUserId, getLoans } from "../actions";
 import { changeTopBarCopy } from "../../layout/actions";
@@ -21,6 +22,17 @@ export class DashboardContainer extends React.PureComponent {
     this.props.history.push("/user/saver/certificates");
   };
 
+  format = (data) => {
+    return data.reduce((acc,ele) => {
+      acc.push({
+      "loanDuration" : ele.term_length,
+      "principle": ele.amount,
+      "interestRate": ele.term_rate,
+      "startDate": ele.created_at
+      });
+      return acc;
+    },[]);
+  }
   render() {
     const { savingsAccounts, loans } = this.props;
 
@@ -37,14 +49,17 @@ export class DashboardContainer extends React.PureComponent {
           const title = (loan && loan.title) || "No Title";
 
           return (
-            <SavingCertificateDetails
-              title={title}
-              key={Math.random() * 100}
-              principle={savingsAccount.amount}
-              interestRate="5"
-              monthsLeft={savingsAccount.termLength}
-              currentTotal={savingsAccount.amount * 1.05}
-            />
+            <>
+              <SavingCertificateDetails
+                title={title}
+                key={Math.random() * 100}
+                principle={savingsAccount.amount}
+                interestRate="5"
+                monthsLeft={savingsAccount.termLength}
+                currentTotal={savingsAccount.amount * 1.05}
+              />
+              <Graph data={this.format(this.props.savingsAccounts)}/>
+            </>
           );
         })}
       </div>

@@ -39,7 +39,7 @@ export class Graph extends Component {
   componentWillMount() {
      this.graph = new GraphInstance(400,250);
      this.manager = new GraphManager(this.graph);
-     setTimeout(() => this.manager.showPortfolio(this.dummyData),500);
+     setTimeout(() => this.manager.showPortfolio(this.props.data),500);
   }
 
   componentDidMount() {
