@@ -18,10 +18,11 @@ body {
 }
 
 #root {
-  background-image: linear-gradient(
+  height: 100vh;
+  background: linear-gradient(
     150deg,
-    rgba(251, 198, 0, 1) 0%,
-    rgba(0, 156, 222, 1) 100%
+    rgba(251, 198, 0, .75) 10%,
+    rgba(0, 156, 222, .89) 90%
   );
   height: 100%;
   color: #ffffff;
