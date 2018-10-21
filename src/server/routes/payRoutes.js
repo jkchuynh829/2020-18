@@ -10,7 +10,7 @@ module.exports = function(app, paypal) {
       },
       redirect_urls: {
         return_url: "http://localhost:3000/payment_success",
-        cancel_url: "http://localhost:3000/payment_success",
+        cancel_url: "http://localhost:3000/payment_cancel",
       },
       transactions: [
         {
@@ -46,12 +46,9 @@ module.exports = function(app, paypal) {
       if (error) {
         throw error;
       } else {
-        console.log("Create Payment Response");
-        console.log(payment);
         for (var index = 0; index < payment.links.length; index++) {
           if (payment.links[index].rel === "approval_url") {
             const redirectUrl = payment.links[index].href;
-            console.log(payment.links[index].href);
             res.json(redirectUrl);
           }
         }
@@ -118,25 +115,13 @@ module.exports = function(app, paypal) {
     };
 
     paypal.payout.create(create_payout_json, function(error, payout) {
-      // if (error) {
-      //     console.log(error.response);
-      //     throw error;
-      // } else {
-      //     console.log("Create Single Payout Response");
-      //     console.log(payout);
-      // }
-
       if (error) {
         console.log(error.response);
         throw error;
       } else {
-        console.log("Create Payment Response");
-        console.log(payout);
-        console.log("payout.links: " + payout.links);
         for (var index = 0; index < payout.links.length; index++) {
           if (payout.links[index].rel === "execute") {
             const redirectUrl = payout.links[index].href;
-            console.log(payout.links);
             res.json(redirectUrl);
           }
         }

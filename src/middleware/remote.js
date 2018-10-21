@@ -1,4 +1,3 @@
-import { normalize } from "normalizr";
 import "whatwg-fetch";
 
 const URL_ROOT = "http://localhost:8080";
@@ -59,27 +58,6 @@ export function remote({ bearerToken, url, config, schema }) {
       .then(parseJSON)
       // tslint:disable-next-line:no-any
       .then(data => {
-        // if error: send error data to remote request redux middleware
-        // if (data.data.errors) {
-        //   throw data.data.errors;
-        // }
-        // // if error: send 401 error data to remote request redux middleware
-        // if (data.data.error === "unauthorized") {
-        //   throw data.data.error;
-        // }
-
-        // if (data.data.error) {
-        //   throw data.data.error;
-        // }
-        // // send response data to remote request redux middleware
-        // if (schema && data) {
-        //   if ("data" in data.data) {
-        //     return normalize(data.data.data, schema);
-        //   }
-
-        //   return normalize(data.data, schema);
-        // }
-
         return { data };
       })
   );

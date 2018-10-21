@@ -11,7 +11,7 @@ export class TextField extends React.PureComponent {
   };
 
   render() {
-    const { value, placeholder, disabled = false, type = "text" } = this.props;
+    const { value, placeholder, disabled = false } = this.props;
 
     return (
       <input
@@ -20,7 +20,6 @@ export class TextField extends React.PureComponent {
         placeholder={placeholder}
         value={value}
         onChange={this.onChange}
-        // type={type}
       />
     );
   }

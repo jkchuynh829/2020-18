@@ -7,7 +7,9 @@ const SliderComponent = createSliderWithTooltip(SliderInput);
 const tipFormatter = (value, type) => {
   switch (type) {
     case "amount":
-      return `Investment: $${value} / ROI: $${Math.floor(Math.round(value * 0.05))}`;
+      return `Investment: $${value} / ROI: $${Math.floor(
+        Math.round(value * 0.05)
+      )}`;
     case "term":
       return `${value} month${value > 1 ? "s" : ""}`;
     default:
@@ -17,7 +19,7 @@ const tipFormatter = (value, type) => {
 
 class Slider extends Component {
   render() {
-    const { onChange, min, max, type } = this.props;
+    const { onChange, min, max } = this.props;
     return (
       <div className="slider-container">
         <SliderComponent
