@@ -10,6 +10,7 @@
     "passport": "^0.4.0",
     "passport-paypal-oauth": "^0.1.0",
     "pg": "^7.5.0",
+    "pixi.js": "^4.8.2",
     "react": "^16.5.2",
     "react-app-rewire-css-modules": "^1.0.0",
     "react-app-rewire-hot-loader": "^1.0.3",
