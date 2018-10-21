@@ -10,6 +10,10 @@ export const getLoansSuccess = "GET_ALL_LOAN_SUCCESS";
 export const getLoansFailure = "GET_ALL_LOAN_FAILURE";
 export const getLoansRequest = "GET_ALL_LOAN_REQUEST";
 
-export const getSavingsAccountsSuccess = "GET_ALL_SAVINGS_ACCOUNTS_SUCCESS";
-export const getSavingsAccountsFailure = "GET_ALL_SAVINGS_ACCOUNTS_FAILURE";
-export const getSavingsAccountsRequest = "GET_ALL_SAVINGS_ACCOUNTS_REQUEST";
+export const getSavingsAccountsSuccess = "GET_SAVINGS_ACCOUNTS_SUCCESS";
+export const getSavingsAccountsFailure = "GET_SAVINGS_ACCOUNTS_FAILURE";
+export const getSavingsAccountsRequest = "GET_SAVINGS_ACCOUNTS_REQUEST";
+
+export const getAllSavingsAccountsSuccess = "GET_ALL_SAVINGS_ACCOUNTS_SUCCESS";
+export const getAllSavingsAccountsFailure = "GET_ALL_SAVINGS_ACCOUNTS_FAILURE";
+export const getAllSavingsAccountsRequest = "GET_ALL_SAVINGS_ACCOUNTS_REQUEST";

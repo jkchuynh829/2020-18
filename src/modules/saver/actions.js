@@ -9,9 +9,12 @@ import {
   getSavingsAccountsRequest,
   getSavingsAccountsFailure,
   getSavingsAccountsSuccess,
+  getAllSavingsAccountsRequest,
+  getAllSavingsAccountsFailure,
+  getAllSavingsAccountsSuccess,
 } from "./constants";
 
-export const getLoans = ({ userId }) => ({
+export const getLoansByUserId = ({ userId }) => ({
   type: REMOTE_REQUEST,
   types: {
     request: getLoansRequest,
@@ -26,7 +29,20 @@ export const getLoans = ({ userId }) => ({
   },
 });
 
-export const getSavingsAccounts = ({ userId }) => ({
+export const getLoans = () => ({
+  type: REMOTE_REQUEST,
+  types: {
+    request: getLoansRequest,
+    failure: getLoansFailure,
+    success: getLoansSuccess,
+  },
+  method: "GET",
+  url: `/loans`,
+  info: { timestamp: new Date().toISOString() },
+  data: {},
+});
+
+export const getSavingsAccountsByUserId = ({ userId }) => ({
   type: REMOTE_REQUEST,
   types: {
     request: getSavingsAccountsRequest,
@@ -39,6 +55,19 @@ export const getSavingsAccounts = ({ userId }) => ({
   data: {
     userId,
   },
+});
+
+export const getSavingsAccounts = () => ({
+  type: REMOTE_REQUEST,
+  types: {
+    request: getAllSavingsAccountsRequest,
+    failure: getAllSavingsAccountsFailure,
+    success: getAllSavingsAccountsSuccess,
+  },
+  method: "GET",
+  url: `/savings_accounts`,
+  info: { timestamp: new Date().toISOString() },
+  data: {},
 });
 
 export const createSavingsAccount = ({
