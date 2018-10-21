@@ -38,17 +38,6 @@ module.exports = function(app, db) {
       query = "SELECT * FROM users;";
     }
 
-    let query
-    if (req.query.email != null) {
-        query = {
-            name: 'find-user',
-            text: 'SELECT * FROM users WHERE email = $1',
-            values: [req.query.email]
-        }
-    } else {
-        query = 'SELECT * FROM users;'
-    }
-
     db.query(query, (err, result) => {
         if (err) {
             console.log(`GET USERS ERROR: ${err}`);
