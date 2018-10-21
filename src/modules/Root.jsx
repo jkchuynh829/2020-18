@@ -9,21 +9,19 @@ import { AuthContainerWrapped as AuthContainer } from "./auth/Container";
 export class Root extends Component {
   render() {
     const { isLoggedIn, history, userType } = this.props;
-    console.log(userType);
+    const isLoginOrRegisterVisible =
+      (!userType || (!isLoggedIn && userType)) &&
+      history.location.pathname !== "/";
 
-    if (
-      isLoggedIn &&
-      userType &&
-      !history.location.pathname.includes("/user")
-    ) {
-      return <Redirect to={`/user/${userType}`} />;
+    const isUserLoggedIn =
+      isLoggedIn && userType && !history.location.pathname.includes("/user");
+
+    if (isLoginOrRegisterVisible) {
+      return <Redirect to="/" />;
     }
 
-    if (
-      (!userType || (!isLoggedIn && userType)) &&
-      history.location.pathname !== "/"
-    ) {
-      return <Redirect to="/" />;
+    if (isUserLoggedIn) {
+      return <Redirect to={`/user/${userType}`} />;
     }
 
     return (

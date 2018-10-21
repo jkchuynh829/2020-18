@@ -1,0 +1,16 @@
+.text-field {
+  margin-top: 3rem;
+  background-color: transparent;
+  outline-style: none;
+  border: 0;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.35);
+  font-weight: 300;
+  font-size: 3.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: left;
+  padding-bottom: 1rem;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}

@@ -1,11 +1,11 @@
 import React from "react";
-import { TopBar } from "./TopBar";
+import { TopBarWrapped as TopBar } from "./TopBar";
 import { SidebarWrapped as Sidebar } from "./Sidebar";
 import { RouteContainerWrapped as RouteContainer } from "./RouteContainer";
 
 export class Container extends React.PureComponent {
   state = {
-    isSidebarVisible: true,
+    isSidebarVisible: false,
   };
 
   toggleSidebar = () => {

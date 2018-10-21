@@ -1,0 +1,31 @@
+.approved-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  .approved-content {
+    display: flex;
+    flex-direction: column;
+
+    .approved-icon {
+      width: 100%;
+      text-align: center;
+      font-size: 10rem;
+    }
+
+    .approved-title {
+      width: 100%;
+      padding-top: 3rem;
+      font-size: 2.4rem;
+      font-weight: 400;
+      text-align: center;
+    }
+
+    .approved-text {
+      padding-top: 3rem;
+      font-size: 2.4rem;
+      font-weight: 300;
+    }
+  }
+}

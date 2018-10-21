@@ -1,18 +1,22 @@
 .top-bar-container {
   width: 100%;
   height: 100%;
-  background-color: $color-primary;
-  border-bottom: 1px solid $color-blue;
-  grid-area: top-bar;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+  color: #ffffff;
+  display: grid;
+  grid-template-columns: 4rem 1fr;
 
-  .fa-bars {
+  .top-bar-icon {
     font-size: 2.5rem;
     color: #ffffff;
-    margin-left: 2rem;
     cursor: pointer;
+  }
+
+  .top-bar-text {
+    font-size: 1.6rem;
+    font-weight: 300;
+    text-align: center;
+    text-indent: -4rem;
   }
 }
