@@ -47,7 +47,7 @@ export class NewCertificate extends React.PureComponent {
       termRate: interestRate,
     });
 
-    paySavingsAccount({ amount });
+    paySavingsAccount({ amount, description: loan.title });
   };
 
   getLoanMax = () => {
@@ -65,6 +65,11 @@ export class NewCertificate extends React.PureComponent {
   render() {
     const { loan, interestRate = "5" } = this.props;
     const { amount } = this.state;
+
+    if (loan === undefined) {
+      return null;
+    }
+
     const loanMax = this.getLoanMax();
 
     return (
@@ -85,7 +90,7 @@ export class NewCertificate extends React.PureComponent {
         </div>
         <div className="new-certificate-amount">{`$${amount}`}</div>
         <div className="new-certificate-button">
-          <Button text="Create Account" onClick={this.onCreate} />
+          <Button text="Deposit to Savings" onClick={this.onCreate} />
         </div>
       </div>
     );

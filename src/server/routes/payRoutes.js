@@ -1,6 +1,7 @@
 module.exports = function(app, paypal) {
   app.post("/pay", (req, res) => {
     let amount = req.body.amount;
+    let description = req.body.description;
 
     const create_payment_json = {
       intent: "sale",
@@ -8,27 +9,35 @@ module.exports = function(app, paypal) {
         payment_method: "paypal",
       },
       redirect_urls: {
-        return_url: "http://localhost:3000/success",
-        cancel_url: "http://localhost:3000/cancel",
+        return_url: "http://localhost:3000/payment_success",
+        cancel_url: "http://localhost:3000/payment_success",
       },
       transactions: [
         {
           item_list: {
             items: [
               {
-                name: "Lending Money",
+                name: "Savings Account Deposit",
                 sku: "001",
                 price: String(amount),
                 currency: "USD",
                 quantity: 1,
               },
             ],
+            shipping_address: {
+              recipient_name: "Equalitee",
+              line1: "123 Hope St",
+              city: "Saratoga",
+              country_code: "US",
+              postal_code: "95070",
+              state: "CA",
+            },
           },
           amount: {
             currency: "USD",
             total: String(amount),
           },
-          description: "Helping a business grow.",
+          description: description || "Savings Account Deposit",
         },
       ],
     };
