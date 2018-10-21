@@ -1,14 +1,19 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 export class TopBar extends React.PureComponent {
+  onBack = () => {
+    this.props.history.goBack();
+  };
+
   render() {
-    const { toggleSidebar, topBarText } = this.props;
+    const { topBarText } = this.props;
 
     return (
       <div className="top-bar-container">
-        <div className="top-bar-text">
-          <i className="fas fa-chevron-left" onClick={toggleSidebar} />
+        <div className="top-bar-icon">
+          <i className="fas fa-chevron-left" onClick={this.onBack} />
         </div>
         <div className="top-bar-text">{topBarText}</div>
       </div>
@@ -20,7 +25,9 @@ const mapStateToProps = state => ({
   topBarText: state.layout.topBarText,
 });
 
-export const TopBarWrapped = connect(
-  mapStateToProps,
-  {}
-)(TopBar);
+export const TopBarWrapped = withRouter(
+  connect(
+    mapStateToProps,
+    {}
+  )(TopBar)
+);
