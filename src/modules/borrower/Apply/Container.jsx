@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import axios from "axios";
 
 import { createLoan } from "../actions";
 import { changeTopBarCopy } from "../../layout/actions";
@@ -22,7 +23,7 @@ export class ApplyContainer extends React.PureComponent {
     firstName: "Joe",
     lastName: "Smith",
     purpose: "",
-    amount: "",
+    amount: 0,
     term: 1,
   };
 
@@ -38,6 +39,11 @@ export class ApplyContainer extends React.PureComponent {
     this.setState({ term: value });
   };
 
+  async getCredit() {
+    const json = await axios.get("http://localhost:8080/credit");
+    return json;
+  }
+
   onSubmit = () => {
     const { purpose, amount, term } = this.state;
     this.props.createLoan({
@@ -47,13 +53,17 @@ export class ApplyContainer extends React.PureComponent {
       termLength: term,
       termRate: "20",
     });
-    this.props.history.push("/user/borrower/approved");
+    this.getCredit().then(data => {
+      if (data.syfCreditScore > 680) {
+        this.props.history.push("/user/borrower/approved");
+      }
+    });
+    // this.props.history.push("/user/borrower/approved");
   };
 
   render() {
-    const { firstName, lastName, purpose, amount, term } = this.state;
-    const isButtonDisabled = purpose === "" || amount === "" || term === "";
-
+    const { firstName, lastName, purpose, amount } = this.state;
+    const isButtonDisabled = purpose === "" || amount === 0;
     return (
       <div className="apply-container">
         <div className="apply-form">
