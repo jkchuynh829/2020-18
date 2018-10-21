@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, withRouter } from "react-router-dom";
+import { Graph } from "./Graph";
 
 import { Container } from "./layout/Container";
 import { getUsers } from "./auth/actions";
@@ -38,6 +39,7 @@ export class Root extends Component {
         <Route path="/logout" exact={true} component={Logout} />
         <Route path="/register" exact={true} component={Register} />
         <Route path="/user" component={Container} />
+        <Graph/>
         {/* <Route path="/user/saver" exact={true} component={SaverContainer} /> */}
       </>
     );
