@@ -14,11 +14,11 @@ export const reducer = (state = initialState, action) => {
       const { userId } = action;
       let userType;
 
-      if (userId === "saver@gmail.com") {
+      if (userId === "sandra@gmail.com") {
         userType = "saver";
       }
 
-      if (userId === "borrower@gmail.com") {
+      if (userId === "joseph@gmail.com") {
         userType = "borrower";
       }
 

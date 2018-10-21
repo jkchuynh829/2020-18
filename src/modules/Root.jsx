@@ -17,9 +17,9 @@ export class Root extends Component {
     const isUserLoggedIn =
       isLoggedIn && userType && !history.location.pathname.includes("/user");
 
-    // if (isLoginOrRegisterVisible) {
-    //   return <Redirect to="/" />;
-    // }
+    if (isLoginOrRegisterVisible) {
+      return <Redirect to="/" />;
+    }
 
     if (isUserLoggedIn) {
       return <Redirect to={`/user/${userType}`} />;

@@ -11,7 +11,7 @@ function findUser(db, paypalID) {
         if (err) {
             console.log("User query error: " + err);
         } else {
-            if (result.length == 0) {
+            if (result["rows"].length == 0) {
                 
                 const query = {
                     name: 'find-user',

@@ -3,10 +3,12 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { changeTopBarCopy } from "../../layout/actions";
+import { getLoans } from "../../borrower/actions";
 import { ContentHeader, NewCertificateDetails } from "../../../components";
 
 export class CertificatesContainer extends React.PureComponent {
   componentDidMount() {
+    this.props.getLoans({ userId: "5" });
     this.props.changeTopBarCopy("Savings Certificates");
   }
 
@@ -15,43 +17,37 @@ export class CertificatesContainer extends React.PureComponent {
   };
 
   render() {
+    const { loans } = this.props;
+
     return (
       <div className="saver-certificates-container">
         <ContentHeader title="Open A New Account" />
-        <NewCertificateDetails
-          title="Joe's Solar Panels"
-          completed="50"
-          total="100"
-          interestRate="5"
-          termLength="12"
-          description="Malik is a independent goat farmer from Kisumu, Kenya.  He’s looking for investors to help finance some farm equipment."
-        />
-        <NewCertificateDetails
-          title="Joe's Solar Panels"
-          completed="50"
-          total="100"
-          interestRate="5"
-          termLength="12"
-          description="Malik is a independent goat farmer from Kisumu, Kenya.  He’s looking for investors to help finance some farm equipment."
-        />
-        <NewCertificateDetails
-          title="Joe's Solar Panels"
-          completed="50"
-          total="100"
-          interestRate="5"
-          termLength="12"
-          description="Malik is a independent goat farmer from Kisumu, Kenya.  He’s looking for investors to help finance some farm equipment."
-        />
+        {loans.map(loan => {
+          const { purpose, amount, term_length } = loan;
+
+          return (
+            <NewCertificateDetails
+              title={purpose.substr(0, 13)}
+              completed="50"
+              total={amount}
+              interestRate="5"
+              termLength={term_length}
+              description={purpose}
+            />
+          );
+        })}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  loans: state.borrower.loans,
+});
 
 export const CertificatesContainerWrapped = withRouter(
   connect(
     mapStateToProps,
-    { changeTopBarCopy }
+    { changeTopBarCopy, getLoans }
   )(CertificatesContainer)
 );

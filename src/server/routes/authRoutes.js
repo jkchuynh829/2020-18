@@ -12,5 +12,5 @@ module.exports = function(app, passport, db) {
         (req, res) => {
             res.redirect('/');
         }
-    )
+    );
 }

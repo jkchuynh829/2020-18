@@ -42,7 +42,7 @@ export class NewCertificateDetails extends React.PureComponent {
         {isOpen && (
           <>
             <div className="new-certificate-term-details">
-              ${termLength} months at {interestRate}%
+              {termLength} months at {interestRate}%
             </div>
             <div className="new-certificate-term-description">
               {description}
