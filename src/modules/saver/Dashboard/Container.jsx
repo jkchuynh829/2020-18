@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { Graph } from "../../Graph";
 
 import { getSavingsAccountsByUserId, getLoans } from "../actions";
 import { changeTopBarCopy } from "../../layout/actions";
@@ -21,6 +22,17 @@ export class DashboardContainer extends React.PureComponent {
     this.props.history.push("/user/saver/certificates");
   };
 
+  format = data => {
+    return data.reduce((acc, ele) => {
+      acc.push({
+        loanDuration: ele.term_length,
+        principle: ele.amount,
+        interestRate: ele.term_rate,
+        startDate: ele.created_at,
+      });
+      return acc;
+    }, []);
+  };
   render() {
     const { savingsAccounts, loans } = this.props;
 
@@ -30,6 +42,8 @@ export class DashboardContainer extends React.PureComponent {
           <ButtonSmall text="New Account" onClick={this.onClickNew} />
         </div>
         <ContentHeader title="My Open Accounts" />
+        <Graph data={this.format(this.props.savingsAccounts)} />
+
         {savingsAccounts.map(savingsAccount => {
           const loan = loans.find(
             loan => String(loan.id) === String(savingsAccount.loan_id)

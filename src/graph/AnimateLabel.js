@@ -25,6 +25,5 @@ export class AnimateLabel {
 		graphics.position.y = this.barOrigin.y;
 		graphics.alpha = a;
 		graphics.rotation = 4;
-		console.log(graphics.position);
 	}
 }

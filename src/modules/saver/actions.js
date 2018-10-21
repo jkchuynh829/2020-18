@@ -98,7 +98,7 @@ export const createSavingsAccount = ({
   },
 });
 
-export const paySavingsAccount = ({ amount }) => ({
+export const paySavingsAccount = ({ amount, description }) => ({
   type: REMOTE_REQUEST,
   types: {
     request: paySavingsAccountRequest,
@@ -110,5 +110,6 @@ export const paySavingsAccount = ({ amount }) => ({
   info: { timestamp: new Date().toISOString() },
   data: {
     amount,
+    description,
   },
 });
