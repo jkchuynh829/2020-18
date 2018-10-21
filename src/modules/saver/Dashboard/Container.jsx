@@ -39,6 +39,7 @@ export class DashboardContainer extends React.PureComponent {
           return (
             <SavingCertificateDetails
               title={title}
+              key={Math.random() * 100}
               principle={savingsAccount.amount}
               interestRate="5"
               monthsLeft={savingsAccount.termLength}
