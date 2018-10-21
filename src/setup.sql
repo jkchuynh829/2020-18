@@ -15,5 +15,17 @@ DO $$
         EXCEPTION
             WHEN duplicate_column THEN RAISE NOTICE 'column paypal_id already exists in users.';
         END;
+    
+        BEGIN
+            ALTER TABLE users ADD COLUMN password VARCHAR(255);
+        EXCEPTION
+            WHEN duplicate_column THEN RAISE NOTICE 'column password already exists in users.';
+        END;
+    
+        BEGIN
+            ALTER TABLE users ADD COLUMN synchrony_id VARCHAR(255);
+        EXCEPTION
+            WHEN duplicate_column THEN RAISE NOTICE 'column synchrony_id already exists in users.';
+        END;
     END;
 $$
