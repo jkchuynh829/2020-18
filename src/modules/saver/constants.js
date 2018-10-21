@@ -17,3 +17,7 @@ export const getSavingsAccountsRequest = "GET_SAVINGS_ACCOUNTS_REQUEST";
 export const getAllSavingsAccountsSuccess = "GET_ALL_SAVINGS_ACCOUNTS_SUCCESS";
 export const getAllSavingsAccountsFailure = "GET_ALL_SAVINGS_ACCOUNTS_FAILURE";
 export const getAllSavingsAccountsRequest = "GET_ALL_SAVINGS_ACCOUNTS_REQUEST";
+
+export const paySavingsAccountSuccess = "PAY_SAVINGS_ACCOUNT_SUCCESS";
+export const paySavingsAccountFailure = "PAY_SAVINGS_ACCOUNT_FAILURE";
+export const paySavingsAccountRequest = "PAY_SAVINGS_ACCOUNT_REQUEST";

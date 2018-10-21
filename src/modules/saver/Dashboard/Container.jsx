@@ -12,7 +12,7 @@ import {
 
 export class DashboardContainer extends React.PureComponent {
   componentDidMount() {
-    this.props.changeTopBarCopy("Savings Certificates");
+    this.props.changeTopBarCopy("Keep Saving, You're Awesome!");
     this.props.getSavingsAccountsByUserId({ userId: this.props.userId });
     this.props.getLoans();
   }

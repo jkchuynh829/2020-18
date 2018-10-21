@@ -75,6 +75,9 @@ paypal.configure({
     "AbDmwqwWHQti9LVG60_R3dxfknfSc1FPLOy02abCRxyyN6PXvxltxO3Rwls1f5pcwXkPGlCo9b63oLnq",
   client_secret:
     "ELGwqN3AMw3eX2tafGhBoElE00SwAP0fxBy5eJaIsnCaD_aohtLNXuW0RvXMPheiIJPh0wEnuGOF4A1j",
+  headers: {
+    custom: "header",
+  },
 });
 
 require("./routes")(app, passport, db, paypal);

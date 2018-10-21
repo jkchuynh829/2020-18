@@ -12,6 +12,9 @@ import {
   getAllSavingsAccountsRequest,
   getAllSavingsAccountsFailure,
   getAllSavingsAccountsSuccess,
+  paySavingsAccountRequest,
+  paySavingsAccountFailure,
+  paySavingsAccountSuccess,
 } from "./constants";
 
 export const getLoansByUserId = ({ userId }) => ({
@@ -92,5 +95,20 @@ export const createSavingsAccount = ({
     loanId,
     termLength,
     termRate,
+  },
+});
+
+export const paySavingsAccount = ({ amount }) => ({
+  type: REMOTE_REQUEST,
+  types: {
+    request: paySavingsAccountRequest,
+    failure: paySavingsAccountFailure,
+    success: paySavingsAccountSuccess,
+  },
+  method: "POST",
+  url: "/pay",
+  info: { timestamp: new Date().toISOString() },
+  data: {
+    amount,
   },
 });

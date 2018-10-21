@@ -16,7 +16,7 @@ export class CertificatesContainer extends React.PureComponent {
   componentDidMount() {
     this.props.getLoans();
     this.props.getSavingsAccounts();
-    this.props.changeTopBarCopy("Savings Certificates");
+    this.props.changeTopBarCopy("Why not add to the piggy bank?");
   }
 
   onClickNew = () => {
@@ -36,25 +36,34 @@ export class CertificatesContainer extends React.PureComponent {
   };
 
   render() {
-    const { loans, users, userId, createSavingsAccount } = this.props;
+    const {
+      loans,
+      users,
+      userId,
+      createSavingsAccount,
+      savingsAccounts,
+    } = this.props;
     const loanCurrents = this.getLoanCurrents();
 
     return (
       <div className="saver-certificates-container">
         <ContentHeader title="Open A New Account" />
         {loans.map(loan => {
-          const { purpose, amount, term_length, id } = loan;
+          const { purpose, title, amount, term_length, id } = loan;
           const user = users.find(user => user.id === loan.user_id);
           const userFirstName = user && user.first_name;
           const completed = loanCurrents[id] || 0;
+          const didUserInvest = savingsAccounts.find(
+            savingsAccount => String(savingsAccount.loan_id) === String(id)
+          );
 
-          if (completed >= amount) {
+          if (completed >= amount || didUserInvest) {
             return null;
           }
 
           return (
             <NewCertificateDetails
-              title={purpose.substr(0, 13)}
+              title={title}
               key={id}
               id={id}
               userId={userId}

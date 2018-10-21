@@ -2,7 +2,11 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { createSavingsAccount, getSavingsAccounts } from "../actions";
+import {
+  createSavingsAccount,
+  getSavingsAccounts,
+  paySavingsAccount,
+} from "../actions";
 import { ContentHeader, Button } from "../../../components";
 import Slider from "../../../components/Slider";
 
@@ -19,11 +23,18 @@ export class NewCertificate extends React.PureComponent {
     this.setState({ amount: value });
   };
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.redirectUrl !== this.props.redirectUrl) {
+      window.location.href = this.props.redirectUrl;
+    }
+  }
+
   onCreate = () => {
     const {
       loan,
       interestRate = "5",
       createSavingsAccount,
+      paySavingsAccount,
       userId,
     } = this.props;
     const { amount } = this.state;
@@ -35,6 +46,8 @@ export class NewCertificate extends React.PureComponent {
       termLength: loan.term_length,
       termRate: interestRate,
     });
+
+    paySavingsAccount({ amount });
   };
 
   getLoanMax = () => {
@@ -85,6 +98,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     loan,
+    redirectUrl: state.saver.redirectUrl,
     savingsAccounts: state.saver.allSavingsAccounts,
     userId: state.auth.user.id,
   };
@@ -93,6 +107,6 @@ const mapStateToProps = (state, ownProps) => {
 export const NewCertificateWrapped = withRouter(
   connect(
     mapStateToProps,
-    { createSavingsAccount, getSavingsAccounts }
+    { createSavingsAccount, getSavingsAccounts, paySavingsAccount }
   )(NewCertificate)
 );
