@@ -20,7 +20,7 @@ const SliderInput = ({ onChange, min, max, type, currentValue }) => (
 
 export class ApplyContainer extends React.PureComponent {
   state = {
-    firstName: "Joe",
+    name1: "",
     lastName: "Smith",
     purpose: "",
     amount: 0,
@@ -45,12 +45,13 @@ export class ApplyContainer extends React.PureComponent {
   }
 
   onSubmit = () => {
-    const { purpose, amount, term } = this.state;
+    const { name1, purpose, amount, term } = this.state;
 
     this.getCredit().then(data => {
-      if (data.syfCreditScore > 680) {
+      if (Number(data.syfCreditScore) > Number(500)) {
         this.props.createLoan({
-          userId: "5",
+          userId: this.props.userId,
+          title: name1,
           purpose,
           amount,
           termLength: term,
@@ -64,29 +65,23 @@ export class ApplyContainer extends React.PureComponent {
   };
 
   render() {
-    const { firstName, lastName, purpose, amount } = this.state;
+    const { name1, purpose, amount } = this.state;
     const isButtonDisabled = purpose === "" || amount === 0;
+
     return (
       <div className="apply-container">
         <div className="apply-form">
           <TextField
-            disabled={true}
-            field="firstName"
-            value={firstName}
-            placeholder="First Name"
+            field="name1"
+            value={name1}
+            placeholder="name"
             onChange={this.onTextFieldChange}
           />
-          <TextField
-            disabled={true}
-            field="lastName"
-            value={lastName}
-            placeholder="Last Name"
-            onChange={this.onTextFieldChange}
-          />
+
           <TextField
             field="purpose"
             value={purpose}
-            placeholder="Your pitch"
+            placeholder="your pitch"
             onChange={this.onTextFieldChange}
           />
           <TextField
@@ -115,7 +110,9 @@ export class ApplyContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  userId: state.auth.user.id,
+});
 
 export const ApplyContainerWrapped = withRouter(
   connect(

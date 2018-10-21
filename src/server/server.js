@@ -24,7 +24,7 @@ app.use(function(req, res, next) {
 });
 
 app.get("/credit", (req, res) => {
-  const authHeader = "Bearer KdrKhgt29YbeopHhNNgdty3shwwd";
+  const authHeader = "Bearer jv2xdRJApqT1EaBXooMaWxdl7pwZ";
   const headers = { headers: { Authorization: authHeader } };
   const URL = "https://api-stg.syf.com/m2020/credit/customers/2/profile";
   axios

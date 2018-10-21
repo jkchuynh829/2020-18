@@ -41,7 +41,20 @@ export class BorrowerDashboard extends React.PureComponent {
     return (
       <div className="borrower-dashboard-container">
         <ContentHeader title="Apply for a Loan" />
-        {!loans.length && <p>Equalitee ensures a better chance for you to gain access to capital by allowing you to leverage the relationships you've cultivated within your own community. In addition to creative methods of assessing your capability, you gain access to investors around the globe who see potential of a community  supported entrepreneur.</p>}
+        {!loans.length && (
+          <>
+            <p>
+              Equalitee ensures a better chance for you to gain access to
+              capital by allowing you to leverage the relationships you've
+              cultivated within your own community.{" "}
+            </p>
+            <p style={{ paddingBottom: "3rem" }}>
+              In addition to creative methods of assessing your capability, you
+              gain access to investors around the globe who see potential of a
+              community supported entrepreneur.
+            </p>
+          </>
+        )}
         <div className="borrower-button-container">
           <Button
             text="Start an application"
