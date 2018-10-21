@@ -3,12 +3,33 @@ const app = express();
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const PayPalStrategy = require('passport-paypal-oauth').Strategy;
-const query = require('./query.js')
+const query = require('./query.js');
+const axios = require('axios');
 app.use(passport.initialize());
 app.use(passport.session());
 const port = 8080;
 
 app.use(bodyParser.json());
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+app.get('/credit', (req, res) => {
+  const authHeader = 'Bearer za2emGHvx9vQPEqg03A9PT18odo7';
+  const headers = { headers: { Authorization: authHeader } };
+  const URL = 'https://api-stg.syf.com/m2020/credit/customers/2/profile';
+ axios.get(URL, headers)
+    .then(data => {
+      res.status(200).json(JSON.stringify(data.data));
+})
+    .catch((err) => {
+      console.log(err);
+      return res.send(422)
+    });
+});
 
 const db = require('./db');
 db.connect();
