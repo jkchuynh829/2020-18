@@ -24,7 +24,7 @@ app.get('/credit', (req, res) => {
  axios.get(URL, headers)
     .then(data => {
       res.status(200).json(JSON.stringify(data.data));
-    })
+})
     .catch((err) => {
       console.log(err);
       return res.send(422)
