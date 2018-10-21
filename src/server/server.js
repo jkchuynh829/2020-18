@@ -3,8 +3,11 @@ const app = express();
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const PayPalStrategy = require('passport-paypal-oauth').Strategy;
-const query = require('./query.js');
+
 const axios = require('axios');
+const query = require('./query.js')
+const paypal = require('paypal-rest-sdk');
+
 app.use(passport.initialize());
 app.use(passport.session());
 const port = 8080;
@@ -55,6 +58,12 @@ passport.use(new PayPalStrategy({
   }
 ));
 
-require ('./routes')(app, passport, db);
+paypal.configure({
+    'mode': 'sandbox',
+    'client_id': "AbDmwqwWHQti9LVG60_R3dxfknfSc1FPLOy02abCRxyyN6PXvxltxO3Rwls1f5pcwXkPGlCo9b63oLnq",
+    'client_secret': "ELGwqN3AMw3eX2tafGhBoElE00SwAP0fxBy5eJaIsnCaD_aohtLNXuW0RvXMPheiIJPh0wEnuGOF4A1j"
+});
+
+require ('./routes')(app, passport, db, paypal);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`)) 
