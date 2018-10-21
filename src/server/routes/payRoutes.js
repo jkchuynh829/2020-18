@@ -1,5 +1,7 @@
-module.exports = function(app, db) {
+module.exports = function(app, paypal) {
     app.post('/pay', (req, res) => {
+        let amount = (req.body.amount/100).toFixed(2);
+        
         const create_payment_json = {
             "intent": "sale",
             "payer": {
@@ -14,14 +16,14 @@ module.exports = function(app, db) {
                     "items": [{
                         "name": "Lending Money",
                         "donation": "001",
-                        "price": "25.00",
+                        "price": amount,
                         "currency": "USD",
                         "quantity": 1
                     }]
                 },
                 "amount": {
                     "currency": "USD",
-                    "total": "25.00"
+                    "total": amount
                 },
                 "description": "Helping a business grow."
             }]
