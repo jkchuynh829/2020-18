@@ -63,7 +63,7 @@ export class BorrowerDashboard extends React.PureComponent {
         </div>
         {fundedLoans.length > 0 && <ContentHeader title="Funded Loans" />}
         {loans.map(loan => {
-          const { purpose, amount, id } = loan;
+          const { title, amount, id } = loan;
           const completed = loanCurrents[id] || 0;
           const isLoanFunded = completed >= Number(amount);
 
@@ -74,7 +74,7 @@ export class BorrowerDashboard extends React.PureComponent {
           return (
             <LoanDetails
               key={Math.random() * 100}
-              title={purpose}
+              title={title}
               total={amount}
               balance={amount - 100}
               amountDue="20"
@@ -86,7 +86,7 @@ export class BorrowerDashboard extends React.PureComponent {
           <ContentHeader title="My Loan Applications" />
         )}
         {loans.map(loan => {
-          const { purpose, amount, id } = loan;
+          const { title, amount, id } = loan;
           const completed = loanCurrents[id] || 0;
           const isLoanFunded = completed - 1 > Number(amount);
           console.log(isLoanFunded, completed, amount);
@@ -98,7 +98,7 @@ export class BorrowerDashboard extends React.PureComponent {
           return (
             <ProgressBar
               key={Math.random() * 100}
-              title={purpose.substr(0, 13)}
+              title={title}
               completed={completed}
               total={amount}
             />
