@@ -6,6 +6,7 @@ import { Container } from "./layout/Container";
 import { getUsers } from "./auth/actions";
 import { AuthContainerWrapped as AuthContainer } from "./auth/Container";
 import { RegisterWrapped as Register } from "./auth/components/Register";
+import { LogoutWrapped as Logout } from "./auth/components/Logout";
 // import { SaverContainerWrapped as SaverContainer } from "./saver/RouteContainer";
 
 export class Root extends Component {
@@ -16,7 +17,9 @@ export class Root extends Component {
   render() {
     const { isLoggedIn, history, userType } = this.props;
     const isLoginOrRegisterVisible =
-      !userType && history.location.pathname !== "/";
+      !userType &&
+      history.location.pathname !== "/" &&
+      history.location.pathname !== "/logout";
 
     const isUserLoggedIn =
       userType && !history.location.pathname.includes("/user");
@@ -32,6 +35,7 @@ export class Root extends Component {
     return (
       <>
         <Route path="/" exact={true} component={AuthContainer} />
+        <Route path="/logout" exact={true} component={Logout} />
         <Route path="/register" exact={true} component={Register} />
         <Route path="/user" component={Container} />
         {/* <Route path="/user/saver" exact={true} component={SaverContainer} /> */}

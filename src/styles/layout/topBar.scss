@@ -5,7 +5,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.65);
   color: #ffffff;
   display: grid;
-  grid-template-columns: 4rem 1fr;
+  grid-template-columns: 4rem 1fr 4rem;
 
   .top-bar-icon {
     font-size: 2rem;
@@ -18,5 +18,12 @@
     font-weight: 300;
     text-align: center;
     text-indent: -4rem;
+  }
+
+  .register-top-bar-sign-out-icon {
+    font-size: 2rem;
+    color: #ffffff;
+    cursor: pointer;
+    text-align: right;
   }
 }
