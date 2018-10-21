@@ -60,7 +60,7 @@ export class DashboardContainer extends React.PureComponent {
               />
           );
         })}
-        {savingsAccounts ? <Graph data={this.format(savingsAccounts)}/> : <div/> }
+        {savingsAccounts.length ? <Graph data={this.format(savingsAccounts)}/> : <div/> }
       </div>
     );
   }

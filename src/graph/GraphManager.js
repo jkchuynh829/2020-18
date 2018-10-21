@@ -19,8 +19,8 @@ export class GraphManager {
   constructor(graph) {
     this.graph = graph;
     this.originY = this.graph.width - (this.graph.width/10);
-    this.originX = 0 ;
-    this.endPointXX = this.graph.length - 15;//- (this.graph.length/20);
+    this.originX = 10 ;
+    this.endPointXX = this.graph.length - 10;//- (this.graph.length/20);
     this.endPointXY = this.graph.width - (this.graph.width/10);
     this.endPointYX =this.originX;
     this.endPointYY = 0 + (this.graph.width/10);
